@@ -1,0 +1,46 @@
+<main class="container">
+    <mat-form-field appearance="fill" class="formregister">
+        <mat-label>Numero de SIRET</mat-label>
+        <input matInput [(ngModel)] = "siret">
+      </mat-form-field>
+      <button (click)="getSiren(siret)">Soumettre</button>
+      <mat-form-field appearance="fill" class="formregister">
+        <mat-label>Numero de SIREN</mat-label>
+        <input matInput [(ngModel)] = "societe.SIREN" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="formregister">
+        <mat-label>Dénomination</mat-label>
+        <input matInput [(ngModel)] = "societe.nom" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="formregister">
+        <mat-label>Adresse</mat-label>
+        <input matInput [(ngModel)] = "societe.adresse" readonly="true">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="formregister">
+        <mat-label>Dirigeant</mat-label>
+        <input matInput [(ngModel)] = "societe.dirigeant">
+      </mat-form-field>
+      <input type="file" class="file-input" multiple
+       (change)="onFileSelected($event)" #fileUpload>
+
+      <div class="file-upload">{{fileName || "No file uploaded yet."}}
+
+        <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+      <div class="progress">
+
+        <mat-progress-bar class="progress-bar" mode="determinate"
+                          [value]="uploadProgress" *ngIf="uploadProgress">
+      
+        </mat-progress-bar>
+      
+        <mat-icon class="cancel-upload" (click)="cancelUpload()" 
+                  *ngIf="uploadProgress">delete_forever</mat-icon>
+      
+      </div>
+
+      
+</main>
