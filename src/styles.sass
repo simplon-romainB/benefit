@@ -4,8 +4,6 @@
 @font-face 
     font-family: "Pacifico-Regular"
     src: url("/assets/fonts/Pacifico-Regular.ttf")
-
-
 $orange: #ea5B0c
 $blue: #26348b
 
@@ -24,15 +22,19 @@ a
     box-sizing: border-box
     font-family: "Roboto-Medium"
     font-size: 16px
+button
+    cursor: pointer
 //header//
 header
     height: 17vh
-    position: fixed
-    background-color: white
+    position: sticky
+    top: 0
     width: 100%
-    background-image: url("/assets/img/logoBenefit.png")
+    background: url("/assets/img/logoBenefit.png")
+    background-color: white
     background-repeat: no-repeat
     background-position: center
+    z-index: 15
 .ordreEC
     display: inline
     position: absolute
@@ -57,6 +59,8 @@ nav
     display: flex
     justify-content: space-around
     color: $blue
+.mmenu
+    display: none
 .rdv
     display: flex
     position: absolute
@@ -91,6 +95,42 @@ nav
     position: absolute
     top: 68%
     left: 86%
+//header1738max//
+@media (max-width: 1738px)
+    nav
+        width: 30%
+        justify-content: space evenly
+    .logoEC
+        width: 10%
+        height: 50%
+    span
+        display: none
+@media (max-width: 1308px)
+    .login
+        display: none
+    nav
+        display: none
+    .mmenu
+        display: block
+    .mmenubutton
+        border: none
+        background-color: white
+    .mlogin
+        color: $orange
+    .orange
+        display: none
+@media (max-width: 860px)
+    .telbutton
+        position: relative
+        right: 2vw
+        top: -10vh
+    .logoEC
+        transform: scale(0.5)
+@media (max-width: 690px)
+    .telbutton
+        right: 29vw
+    header
+        background-size: 75%
 //register//
 .container
     display: flex
@@ -101,11 +141,44 @@ nav
     position: relative
     top: 25vh
     align-items: center
+    z-index: 0
+    position: relative
 .formregister
     width: 33%
+    z-index: 0
+    position: relative
 .file-input //on cache le veritable uploader de fichiers car il est trop difficile a styliser//
     display: none
-
+.submitsiret
+    border-radius: 25px
+    border: 1px solid $blue
+    width: 10%
+    height: 5%
+    background-color: white
+    color: $blue
+.upload-btn
+    background-color: white
+    border: 1px solid $blue
+    border-radius: 10px
+.registerform
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-evenly
+    height: 100%
+    width: 100%
+.display
+    display: block
+    opacity: 1
+    color: red
+.none
+    display: none 
+    opacity: 0
+    transition: all 1s
+.green
+    color: green
+.red
+    color: red
 
 
 

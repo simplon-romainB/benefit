@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { OCRComponent } from './ocr/ocr.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { LoginComponent } from './login/login.component';
+import { EspaceClientComponent } from './espace-client/espace-client.component'; 
 
 
 
@@ -20,7 +23,9 @@ import { OCRComponent } from './ocr/ocr.component';
   declarations: [
     AppComponent,
     RegisterComponent,
-    OCRComponent
+    OCRComponent,
+    LoginComponent,
+    EspaceClientComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,8 @@ import { OCRComponent } from './ocr/ocr.component';
     FormsModule,
     HttpClientModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

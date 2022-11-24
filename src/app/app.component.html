@@ -1,6 +1,6 @@
 <header>
         <img src="/assets/img/logoEC.jpg" alt="logo experts comptables" class="logoEC">
-        <p class="ordreEC">Ordre des experts comptables</p>
+        <!--<p class="ordreEC">Ordre des experts comptables</p>-->
         <div class="experts">
             <p class="orange">Experts certifiés et basés en France</p>
             <img src="/assets/img/france.png" alt="drapeau France" class="flag">
@@ -11,15 +11,39 @@
             <a href="#">Fonctionnalitées</a>
             <a href="#">A propos</a>
         </nav>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="mmenu mmenubutton">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <a href="#" class="mlogin">Connexion</a>
+            </button>
+            <button mat-menu-item>
+                <a href="#" class="mlogin">Inscription</a>
+            </button>
+            <button mat-menu-item>
+                <a href="#">Tarifs</a>
+            </button>
+            <button mat-menu-item>
+                <a href="#"><a href="#">Solutions</a></a>
+            </button>
+            <button mat-menu-item >
+                <a href="#">Fonctionnalitées</a>
+            </button>
+            <button mat-menu-item>
+                <a href="#">A propos</a>
+            </button>
+          </mat-menu>
+          
         <div class ="rdv">
             <mat-icon>calendar_today</mat-icon>
             <a href="#">Prenez RDV</a>
         </div>
        <a href="tel:+04525252" class="linkphone"><button class="telbutton"><img src="/assets/img/phone-call.png" alt="appel telephonique"><span>04 52 52 52 52</span></button></a>
        <div class="login">
-        <a href="#">Connexion</a>
+        <a [routerLink]="['/login']">Connexion</a>
         <a [routerLink]="['/register']">Inscription</a>
        </div>
 </header>
 <router-outlet></router-outlet>
-<app-ocr></app-ocr>
+<!--<app-ocr></app-ocr>-->

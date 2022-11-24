@@ -9,7 +9,7 @@ import { createWorker } from 'tesseract.js';
 export class OCRComponent implements OnInit {
 
   constructor() { 
-    this.read()
+    //this.read()
   }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class OCRComponent implements OnInit {
     await worker.load();
     await worker.loadLanguage('fra');
     await worker.initialize('fra');
-    const { data: { text } } = await worker.recognize('/assets/img/facturette.jpg');
+    const { data: { text } } = await worker.recognize('/assets/img/mauvaise.jpg');
     console.log(text);
     await worker.terminate();
   }

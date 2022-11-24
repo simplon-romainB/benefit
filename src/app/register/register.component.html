@@ -1,29 +1,55 @@
 <main class="container">
-    <mat-form-field appearance="fill" class="formregister">
+  <form class="registerform"  >
+    <mat-form-field appearance="fill" class="formregister" minlength="14" maxlength="14" required>
         <mat-label>Numero de SIRET</mat-label>
-        <input matInput [(ngModel)] = "siret">
+        <input matInput [(ngModel)] = "siret" [ngModelOptions]="{standalone: true}">
+        <small [ngClass]="invalid === true ? 'display': 'none'">numero de siret invalide</small>
+      <small [ngClass]="numbersOnly === true ? 'display': 'none'">le numero de siret doit comporter 14 chiffres</small>
       </mat-form-field>
-      <button (click)="getSiren(siret)">Soumettre</button>
-      <mat-form-field appearance="fill" class="formregister">
-        <mat-label>Numero de SIREN</mat-label>
-        <input matInput [(ngModel)] = "societe.SIREN" readonly="true">
+      <button (click)="getSiren(siret)" class="submitsiret" >Soumettre</button>
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label >Numero de SIREN</mat-label >
+        <input matInput [(ngModel)] = "societe.SIREN" [ngModelOptions]="{standalone: true}" readonly="true">
       </mat-form-field>
-      <mat-form-field appearance="fill" class="formregister">
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
         <mat-label>Dénomination</mat-label>
-        <input matInput [(ngModel)] = "societe.nom" readonly="true">
+        <input matInput [(ngModel)] = "societe.nom" [ngModelOptions]="{standalone: true}" readonly="true">
       </mat-form-field>
-      <mat-form-field appearance="fill" class="formregister">
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
         <mat-label>Adresse</mat-label>
-        <input matInput [(ngModel)] = "societe.adresse" readonly="true">
+        <input matInput [(ngModel)] = "societe.adresse" [ngModelOptions]="{standalone: true}" readonly="true">
       </mat-form-field>
-      <mat-form-field appearance="fill" class="formregister">
-        <mat-label>Dirigeant</mat-label>
-        <input matInput [(ngModel)] = "societe.dirigeant">
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label>Nom du Dirigeant</mat-label>
+        <input matInput [(ngModel)] = "societe.nomdirigeant" [ngModelOptions]="{standalone: true}" required>
       </mat-form-field>
-      <input type="file" class="file-input" multiple
-       (change)="onFileSelected($event)" #fileUpload>
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label>Prenom du Dirigeant</mat-label>
+        <input matInput [(ngModel)] = "societe.prenomdirigeant" [ngModelOptions]="{standalone: true}" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label>email</mat-label>
+        <input type="email" matInput [(ngModel)] = "societe.email" [ngModelOptions]="{standalone: true}" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput [(ngModel)] = "societe.password" [ngModelOptions]="{standalone: true}" required (keyup) = passValidation()>
+      </mat-form-field>
+      <ul *ngIf="siretok">
+        <li [ngClass]="eightValidate?'green': 'red'">votre mot de passe doit faire au moins 8 caractères</li>
+          <li [ngClass]="specValidate?'green': 'red'">votre mot de passe doit contenir un caractère spécial</li>
+          <li [ngClass]="minValidate?'green': 'red'" >votre mot de passe doit contenir une minuscule</li>
+          <li [ngClass]="majValidate?'green': 'red'">votre mot de passe doit contenir une majuscule</li>
+        </ul>
+      <mat-form-field appearance="fill" class="formregister" *ngIf="siretok">
+        <mat-label>Confirmation de mot de passe</mat-label>
+        <input type="password" matInput [(ngModel)] = "societe.passwordconfirm" [ngModelOptions]="{standalone: true}" required>
+        <small *ngIf="!passConfirmed">vous devez confirmer votre mot de passe</small>
+      </mat-form-field>
+      <input type="file" class="file-input" multiple accept="image/pdf, image/png, image/jpeg"
+       (change)="onFileSelected($event)" #fileUpload >
 
-      <div class="file-upload">{{fileName || "No file uploaded yet."}}
+      <div class="file-upload" *ngIf="siretok">{{fileName || "Veuillez ajouter votre Kbis."}}
 
         <button mat-mini-fab color="primary" class="upload-btn"
             (click)="fileUpload.click()">
@@ -37,10 +63,11 @@
       
         </mat-progress-bar>
       
-        <mat-icon class="cancel-upload" (click)="cancelUpload()" 
+        <mat-icon class="cancel-upload" 
                   *ngIf="uploadProgress">delete_forever</mat-icon>
       
       </div>
-
+      <button  class="submitsiret" *ngIf="siretok" (click)="register(transData)">Inscription</button>
+    </form>
       
 </main>
