@@ -41,9 +41,31 @@
         </div>
        <a href="tel:+04525252" class="linkphone"><button class="telbutton"><img src="/assets/img/phone-call.png" alt="appel telephonique"><span>04 52 52 52 52</span></button></a>
        <div class="login">
-        <a [routerLink]="['/login']">Connexion</a>
+        <a [routerLink]="['/login']" *ngIf="((logincom.token === undefined)||(logincom.token === ''))">Connexion</a>
+        <a [routerLink]="['/espace']" *ngIf="((logincom.token !== undefined)&&(logincom.token !== ''))">Espace client</a>
         <a [routerLink]="['/register']">Inscription</a>
        </div>
 </header>
+<aside class = "cookiecontainer" *ngIf="cookie">
+    <div class = "cookie">
+        <p>En poursuivant votre navigation sur ce site, vous acceptez notre politique de données et l’utilisation de cookies nécessaires à l’utilisation du site et à l’amélioration de votre expérience. Veuillez prendre connaissance de notre politique de confidentialité <a [routerLink]="['/rgpd']">ici</a></p>
+        <div class="buttoncontainer" *ngIf="!choice">
+            <button class="submitsiret cookiebutton" (click) = "acceptAll()">Tout accepter</button>
+            <button class="submitsiret cookiebutton" (click) = "refuseAll()">Tout refuser</button>
+            <button class="submitsiret cookiebutton" (click) = "choose()">Choisir</button>
+        </div>
+        <div *ngIf="choice" class="cookieschoice">
+            <mat-checkbox type="checkbox" name="analytics" id="analytics" [(ngModel)]="analytics2" class="cookielabel">Google analytics</mat-checkbox>
+            <mat-checkbox type="checkbox" name="connexion" id="connexion" [(ngModel)]="connexion" class="cookielabel">Connexion</mat-checkbox>
+            <mat-checkbox type="checkbox" name="fonctionnement" id="fonctionnement" disabled = "true" class="cookielabel" [checked] = "true">cookies assurant le bon fonctionnement du site</mat-checkbox>
+            <button class="submitsiret cookiebutton" (click) = "changeCookies()">Accepter</button>
+        </div>
+        
+    </div>
+</aside>
+<aside class="cookiemenu">
+    <mat-icon class="cookiemenuicon" (click) = "cookieToggle()">build   
+    </mat-icon>
+</aside>
 <router-outlet></router-outlet>
 <!--<app-ocr></app-ocr>-->

@@ -1,8 +1,163 @@
-<main>
+<main class="maincontainer">
+  <mat-icon class="decobutton" (click)="disconnect()">open_in_new</mat-icon>
     <section class="donneesclient">
+        <form class="registerform"  #registerform2 = "ngForm" name="form2">
+            <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
+                <mat-label>Numero de SIRET</mat-label>
+                <input matInput [(ngModel)] = "societe.siret"  readonly ="true" name="siret">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label >Numero de SIREN</mat-label >
+                <input matInput [(ngModel)] = "societe.siren"  readonly="true" name="siren">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>Dénomination</mat-label>
+                <input matInput [(ngModel)] = "societe.denomination"  readonly="true" name="denomination">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>Adresse</mat-label>
+                <input matInput [(ngModel)] = "societe.adresse"  readonly="true" name="adresse">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>Nom du Dirigeant</mat-label>
+                <input matInput [(ngModel)] = "societe.nom"  required name="nom">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>Prenom du Dirigeant</mat-label>
+                <input matInput [(ngModel)] = "societe.prenom"  required name="prenom">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>email</mat-label>
+                <input type="email" matInput [(ngModel)] = "societe.email"  readonly = "true" name="email" >
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>Mot de passe</mat-label>
+                <input type="password" matInput [(ngModel)] = "societe.password"  required (keyup) = passValidation() name="password">
+              </mat-form-field>
+              <ul >
+                <li [ngClass]="eightValidate?'green': 'red'">votre mot de passe doit faire au moins 8 caractères</li>
+                  <li [ngClass]="specValidate?'green': 'red'">votre mot de passe doit contenir un caractère spécial</li>
+                  <li [ngClass]="minValidate?'green': 'red'" >votre mot de passe doit contenir une minuscule</li>
+                  <li [ngClass]="majValidate?'green': 'red'">votre mot de passe doit contenir une majuscule</li>
+                </ul>
+              <mat-form-field appearance="fill" class="formprofil">
+                <mat-label>Confirmation de mot de passe</mat-label>
+                <input type="password" matInput [(ngModel)] = "societe.passwordconfirm"  required name="confirmpassword" (keyup) = "confirmPassword()" (keyup)="passValidation()">
+                <small *ngIf="!passConfirmed">vous devez confirmer votre mot de passe</small>
+              </mat-form-field>
+              <div class="facbutton">
+                <button  class="submitsiret creerfacture" (click) = "updateProfil(societe)" [disabled]="((registerform2.form.invalid)||(!registerReady))? true: false" [ngStyle]="{'opacity': ((registerform2.form.invalid)||(!registerReady))? '0.5' : '1'}">Mettre à jour</button>
+                <button  class="submitsiret creerfacture" *ngIf="societe.siret !== ''" (click)="createFacture()">Créer facture</button>
+                <button class="submitsiret creerfacture" *ngIf="societe.siret !== ''" (click)="clientForm()">ajouter un client</button>
+              </div>
+              </form>
+            <form *ngIf="facture" class="registerform" #registerform = "ngForm" name="form">
+              <mat-form-field appearance="fill" class="formprofil"  required >
+                <mat-label>designation</mat-label>
+                <input matInput [(ngModel)] = "item.designation" type="text"  required name="designation">
+                
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label >quantité</mat-label >
+                <input type="number" matInput [(ngModel)] = "item.quantite"  min="1"  required name="quantite">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label>prix unitaire HT</mat-label>
+                <input matInput [(ngModel)] = "item.prix"   type="number"  min="0" required name="prixHT">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label >TVA</mat-label >
+                <input  matInput [(ngModel)] = "item.tva"  type="number"  min="0" required name="TVA">
+                </mat-form-field>
+              <div class="facbutton">
+                <button class="submitsiret" [disabled]="cart? false: true" [ngStyle]="{'opacity': !cart? '0.5' : '1'}"(click)="finishBill()">finir facture</button>
+                <button class="submitsiret"  [disabled]="registerform.form.invalid? true: false" [ngStyle]="{'opacity': (registerform.form.invalid)? '0.5' : '1'}"(click)="confirmArticle()">confirmer article</button>
+                <button class="submitsiret"  [disabled]="bill? false: true" [ngStyle]="{'opacity': !bill? '0.5' : '1'}"(click)="exportHtmlToPDF()" >exporter en PDF</button>
+              </div>
+              <div class="facturecontainer" id="facturecontainer">
+              <table id="facture">
+                <tr>
+                  <td>numero facture</td>
+                  <td>designation</td>
+                  <td>quantité</td>
+                  <td>prix unitaire HT</td>
+                  <td>prix unitaire TTC</td>
+                  <td>TVA</td>
+                  <td>date</td>
+                  <td>total HT</td>
+                  <td>total TTC</td>
+                </tr> 
+              </table>
+              <div>DE SIRET: {{societe.siret}}</div>
+              <div>{{societe.adresse}}</div>
+              <div>{{societe.denomination}}</div>
+            </div>
+            </form>
 
+            
     </section>
     <section class="documentsclient">
+        <input type="file" class="file-input" multiple 
+       (change)="onFileSelected($event)" #fileUpload >
 
+      <div class="file-upload" >{{fileName || "Veuillez ajouter votre document."}}
+
+        <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+      <input type="file" class="file-input" multiple 
+       (change)="onKbisSelected($event)" #fileUpload2 >
+
+      <div class="file-upload" >{{fileName2 || "Vous pouvez mettre à jour votre Kbis."}}
+
+        <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload2.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+      <img [src]="'https://kbis-express.fr/webroot/front/imgs/kbis-doc.jpg'" alt="Kbis" *ngIf="this.societe.Kbis !== null">
+      <a href="https://kbis-express.fr/webroot/front/imgs/kbis-doc.jpg"
+        target="_blank"
+        download="kbis"
+><mat-icon>save_alt</mat-icon></a>
+      
+      <div *ngFor="let doc of renderDoc">
+        <div class = "documentscontainer">{{doc.nom}}
+          <mat-icon>save_alt</mat-icon>
+        </div>
+      </div>
+      <form *ngIf="existClient" class="registerform clientform" #registerform3 = "ngForm" name="form3">
+        <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
+          <mat-label>Numero de SIRET</mat-label>
+          <input matInput [(ngModel)] = "client.nom"   name="nom">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label >Numero de SIREN</mat-label >
+          <input matInput [(ngModel)] = "client.prenom"   name="prenom">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label>Dénomination</mat-label>
+          <input matInput [(ngModel)] = "client.denomination"   name="denomination">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label>Adresse</mat-label>
+          <input matInput [(ngModel)] = "client.adresse"  readonly="true" name="adresse" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)] = "client.email"  required name="email" required >
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label>Telephone</mat-label>
+          <input matInput [(ngModel)] = "client.telephone"  required name="telephone">
+        </mat-form-field>
+        <button class="submitsiret creerfacture" (click)="creerClient()">enregistrer</button>
+      </form>
     </section>
-</main>
+  </main>
+  
+   
+  
+

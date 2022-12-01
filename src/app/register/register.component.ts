@@ -2,9 +2,10 @@ import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SireneService } from '../sirene.service';
 import { UserprofileService } from '../userprofile.service';
-import { finalize, Subscription, pipe } from 'rxjs'
-import * as Tesseract from 'tesseract.js';
 import { LoginService } from '../login.service';
+
+import { AnalyticsService } from '../analyticsservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +14,12 @@ import { LoginService } from '../login.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public siren: SireneService, public user: UserprofileService, public http: HttpClient, public login: LoginService) { }
+  constructor(public router: Router,public siren: SireneService, public user: UserprofileService, public http: HttpClient, public login: LoginService, private analytics: AnalyticsService) { 
+
+    this.analytics.trackVirtualPageview("register")
+  }
   public siret: string = ''
-  public societe = {SIRET: '',SIREN: '', nom: '', adresse: '', capital: '', password: '', passwordconfirm: '', email: '', nomdirigeant: '', prenomdirigeant: ''}
+  public societe = {SIRET: '',SIREN: '', nom: '', adresse: '', capital: '', password: '', passwordconfirm: '', email: '', nomdirigeant: '', prenomdirigeant: '', recaptcha: ''}
   public fichier: any
   public fileName: any = ''
   public uploadProgress:number;
@@ -30,15 +34,23 @@ export class RegisterComponent implements OnInit {
   private special = /[^A-z\s\d][\\\^]?/g
   private min = /[a-z]/gm
   private maj = /[A-Z]/gm
+  private email = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/g
   public passConfirmed = false;
   public registerReady = false;
   public transData: any = new FormData();
+  public recaptcha = ''
+  public addressChange: boolean
 
   ngOnInit(): void {
   }
 
   getSiren(siret: string) {
-    if ((this.siret).length === 14) {
+    if (this.email.test(this.siret)) {
+      this.siretok = true
+      this.addressChange = true
+      
+    }
+    else if ((this.siret).length === 14) {
       this.siren.getSiren(siret).subscribe((v: any) => {
         this.societe.SIRET = this.siret
         this.societe.SIREN = v.etablissement.siren
@@ -56,7 +68,7 @@ export class RegisterComponent implements OnInit {
       )
     } 
     else {
-      
+      console.log("n'imp")
       this.numbersOnly = true
       var z = setTimeout(()=>{this.numbersOnly = false}, 5000)
     }
@@ -64,13 +76,8 @@ export class RegisterComponent implements OnInit {
   onFileSelected(event: any) {
 
     const file:File = event.target.files[0];
-
-    if (file) {
-
-        this.fileName = file.name;
-        const formData: any = new FormData();
-        formData.append("thumbnail", file);
-        formData.append("siret", this.societe.SIRET);
+    const formData: any = new FormData();
+    formData.append("siret", this.societe.SIRET);
         formData.append("siren", this.societe.SIREN);
         formData.append("nom", this.societe.nom);
         formData.append("adresse", this.societe.adresse);
@@ -79,6 +86,11 @@ export class RegisterComponent implements OnInit {
         formData.append("nomdirigeant", this.societe.nomdirigeant);
         formData.append("prenomdirigeant", this.societe.prenomdirigeant);
         this.postDatas(formData)
+    if (file) {
+
+        this.fileName = file.name;
+        formData.append("thumbnail", file);
+        
       
     }
 }
@@ -138,9 +150,29 @@ else {
 }
 }
 register(societe: any) {
-  this.login.register(societe).subscribe((v)=> {
-    console.log(v)
+  const formData: any = new FormData();
+      formData.append("siret", this.societe.SIRET);
+      formData.append("siren", this.societe.SIREN);
+      formData.append("nom", this.societe.nom);
+      formData.append("adresse", this.societe.adresse);
+      formData.append("password", this.societe.password);
+      formData.append("email", this.societe.email);
+      formData.append("nomdirigeant", this.societe.nomdirigeant);
+      formData.append("prenomdirigeant", this.societe.prenomdirigeant);
+      formData.append("recaptcha", this.recaptcha)
+      this.postDatas(formData)
+  this.login.register(this.transData).subscribe((v)=> {
+    this.router.navigateByUrl('/')
+    console.log('register')
   })
 } 
+resolved(captchaResponse: string) {  
+ this.recaptcha = captchaResponse;
+ 
+}
+resetToken() {
+  this.recaptcha = '';
+  console.log("recaptcha expired")
+}
 
 }

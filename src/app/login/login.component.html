@@ -1,8 +1,8 @@
 <main class="container">
     <form class="registerform"  >
       <mat-form-field appearance="fill" class="formregister" minlength="14" maxlength="14" required>
-          <mat-label>Numero de SIRET</mat-label>
-          <input matInput [(ngModel)] = "societe.siret" [ngModelOptions]="{standalone: true}">
+          <mat-label>Adresse Email</mat-label>
+          <input matInput [(ngModel)] = "societe.email" [ngModelOptions]="{standalone: true}">
           <small [ngClass]="invalid === true ? 'display': 'none'">numero de siret ou mot de passe invalide</small>
         </mat-form-field>
         
