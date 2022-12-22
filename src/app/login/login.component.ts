@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AnalyticsService } from '../analyticsservice.service';
 import { DocumentsService } from '../documents.service';
+import { FacturationService } from '../facturation.service';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { LoginService } from '../login.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  constructor(public cookieService: CookieService, private logincom: LoginService, private router: Router, public documents: DocumentsService, private analytics: AnalyticsService ) {
+  constructor(public facturation: FacturationService,public cookieService: CookieService, private logincom: LoginService, private router: Router, public documents: DocumentsService, private analytics: AnalyticsService ) {
     this.analytics.trackVirtualPageview("login")
    }
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
       }
       else {
         this.documents.token = v[0]
+        this.facturation.token = v[0]
         this.logincom.token = v[0]
         this.router.navigateByUrl('/')
         this.logincom.societe.siret = v[1][0].SIRET

@@ -1,22 +1,15 @@
-<main class="maincontainer">
-    <section class="donneesclient">
-        <form class="registerform"  >
-            <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
-                <mat-label>Nom</mat-label>
-                <input matInput [(ngModel)] = "admin.nom" [ngModelOptions]="{standalone: true}" readonly ="true">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="formprofil" >
-                <mat-label >Prenom</mat-label >
-                <input matInput [(ngModel)] = "admin.prenom" [ngModelOptions]="{standalone: true}" readonly="true">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="formprofil" >
-                <mat-label>Adresse email</mat-label>
-                <input matInput [(ngModel)] = "admin.email" [ngModelOptions]="{standalone: true}" readonly="true">
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="formprofil" >
-                <mat-label>Telephone</mat-label>
-                <input matInput [(ngModel)] = "admin.telephone" [ngModelOptions]="{standalone: true}" readonly="true">
-              </mat-form-field>
-        </form>
-    </section>
+<main class="container">
+  <form class="registerform"  #registerform2 = "ngForm" name="form2" >
+    <mat-form-field appearance="fill" class="formregister"  >
+        <mat-label>Adresse Email</mat-label>
+        <input matInput [(ngModel)] = "admin.email" name="email" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill" class="formregister" >
+        <mat-label >Mot de passe</mat-label >
+        <input matInput [(ngModel)] = "admin.password" required type ="password" name="password">
+        
+      </mat-form-field>
+      <button (click)="loginAdmin(admin)" class="submitsiret" >connexion</button>
+  </form>
 </main>

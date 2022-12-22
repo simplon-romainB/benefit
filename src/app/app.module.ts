@@ -24,7 +24,17 @@ import { RgpdComponent } from './rgpd/rgpd.component';
 import { CookieService } from 'ngx-cookie-service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AdminComponent } from './admin/admin.component';
-
+import { AdmindetailsComponent } from './admindetails/admindetails.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { HomeComponent } from './home/home.component';
+import { SwiperModule } from 'swiper/angular';
+import {MatCardModule} from '@angular/material/card';
+import { TarifsComponent } from './tarifs/tarifs.component';
+import { CarouselModule } from 'ngx-acuw';
 
 
 
@@ -39,7 +49,10 @@ import { AdminComponent } from './admin/admin.component';
     SanitizerPipe,
     RgpdComponent,
     AdminComponent,
-    EspaceClientComponent
+    EspaceClientComponent,
+    AdmindetailsComponent,
+    HomeComponent,
+    TarifsComponent
     
   ],
   imports: [
@@ -58,7 +71,16 @@ import { AdminComponent } from './admin/admin.component';
     ReactiveFormsModule,
     NgxGoogleAnalyticsModule.forRoot('MEASUREMENT-ID'),
     NgxGoogleAnalyticsRouterModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    SwiperModule,
+    MatCardModule,
+    CarouselModule
+    
   ],
   providers: [AnalyticsService, CookieService],
   bootstrap: [AppComponent]

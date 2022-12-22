@@ -1,0 +1,49 @@
+<main class="maincontainer">
+    <mat-icon class="decobutton" (click)="deconnexion()">open_in_new</mat-icon>
+      <section class="donneesclient">
+          <form class="registerform adminform"  #registerform2 = "ngForm" name="form2">
+              <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
+                  <mat-label>nom</mat-label>
+                  <input matInput [(ngModel)] = "admin.nom"  readonly ="true" name="siret">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="formprofil" >
+                  <mat-label >prenom</mat-label >
+                  <input matInput [(ngModel)] = "admin.prenom"  readonly="true" name="siren">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="formprofil" >
+                  <mat-label>Email</mat-label>
+                  <input matInput [(ngModel)] = "admin.email"  readonly="true" name="email">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="formprofil" >
+                  <mat-label>telephone</mat-label>
+                  <input matInput [(ngModel)] = "admin.telephone"   name="telephone">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="formprofil" >
+                    <mat-label>mot de passe</mat-label>
+                    <input matInput [(ngModel)] = "admin.password"   name="password">
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" class="formprofil" >
+                    <mat-label>confirmation du mot de passe</mat-label>
+                    <input matInput [(ngModel)] = "admin.confirmpassword"   name="confirmpassword">
+                  </mat-form-field>
+            </form>
+        </section>
+        <section class="client">
+          <div class="adminclient">
+            <div class="clientlist">
+              <p *ngFor="let clien of clients" class="clientsbutton" (click)="chooseClient(clien)">{{clien.email}}
+                <span *ngIf="clien.denomination !== ''">{{clien.denomination}}</span>
+                <span *ngIf="clien.denomination === ''">{{clien.Nom}} {{clien.Prenom}}</span>
+              </p>
+            </div>
+            <div class="clientdetails" *ngIf="client !== undefined">
+              <p>{{client.email}}</p>
+              <p *ngIf="client.denomination !== ''">{{client.denomination}}</p>
+              <p *ngIf="client.denomination === ''">{{client.Nom}} {{client.Prenom}}</p>
+              <p *ngIf="client.SIRET !== ''">{{client.SIRET}}</p>
+              <p *ngIf="client.SIREN !== ''">{{client.SIREN}}</p>
+              <p>{{client.adresse}}</p>
+            </div>
+          </div>
+        </section>
+ </main>

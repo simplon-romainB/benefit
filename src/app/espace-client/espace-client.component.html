@@ -1,7 +1,7 @@
 <main class="maincontainer">
   <mat-icon class="decobutton" (click)="disconnect()">open_in_new</mat-icon>
     <section class="donneesclient">
-        <form class="registerform"  #registerform2 = "ngForm" name="form2">
+        <form class="registerform profilform"  #registerform2 = "ngForm" name="form2">
             <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
                 <mat-label>Numero de SIRET</mat-label>
                 <input matInput [(ngModel)] = "societe.siret"  readonly ="true" name="siret">
@@ -51,49 +51,98 @@
                 <button class="submitsiret creerfacture" *ngIf="societe.siret !== ''" (click)="clientForm()">ajouter un client</button>
               </div>
               </form>
-            <form *ngIf="facture" class="registerform" #registerform = "ngForm" name="form">
+            <form *ngIf="facture" class="registerform factureform" #registerform = "ngForm" name="form">
               <mat-form-field appearance="fill" class="formprofil"  required >
                 <mat-label>designation</mat-label>
                 <input matInput [(ngModel)] = "item.designation" type="text"  required name="designation">
-                
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label >quantité</mat-label >
                 <input type="number" matInput [(ngModel)] = "item.quantite"  min="1"  required name="quantite">
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
+                <mat-label >Unité</mat-label >
+                <input  matInput [(ngModel)] = "item.unite"    required name="unité">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label>prix unitaire HT</mat-label>
-                <input matInput [(ngModel)] = "item.prix"   type="number"  min="0" required name="prixHT">
+                <input matInput [(ngModel)] = "item.prix"   type="number"   required name="prixHT">
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label >TVA</mat-label >
                 <input  matInput [(ngModel)] = "item.tva"  type="number"  min="0" required name="TVA">
                 </mat-form-field>
+              <mat-form-field appearance="fill" class="formprofil" >
+                  <mat-label >Numero de facture</mat-label >
+                  <input  matInput [(ngModel)] = "numerofacture"  type="number"  min="0" required name="numerofacture">
+                  </mat-form-field>
               <div class="facbutton">
-                <button class="submitsiret" [disabled]="cart? false: true" [ngStyle]="{'opacity': !cart? '0.5' : '1'}"(click)="finishBill()">finir facture</button>
+                <button mat-button [matMenuTriggerFor]="menu" class="submitsiret">choisir client</button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let client of clients" (click)="chooseClient(client)">{{client.email}}</button>
+              </mat-menu>
+                <button *ngIf="multiFacture" class="submitsiret"(click)="addPage()">ajouter une page</button>
+                <button class="submitsiret" [disabled]="(cart&&client.adresse!== '')? false: true" [ngStyle]="{'opacity': (!cart||client.adresse=== '')? '0.5' : '1'}"(click)="finishBill()">finir facture et exporter</button>
+                <button class="submitsiret" (click)="saveProfile()">Sauvegarder profil</button>
                 <button class="submitsiret"  [disabled]="registerform.form.invalid? true: false" [ngStyle]="{'opacity': (registerform.form.invalid)? '0.5' : '1'}"(click)="confirmArticle()">confirmer article</button>
-                <button class="submitsiret"  [disabled]="bill? false: true" [ngStyle]="{'opacity': !bill? '0.5' : '1'}"(click)="exportHtmlToPDF()" >exporter en PDF</button>
+                <button class="submitsiret" mat-button [matMenuTriggerFor]="menu3" class="submitsiret"  >charger profil</button>
+                <mat-menu #menu3="matMenu">
+                  <button mat-menu-item *ngFor="let profile of profiles" (click)="chooseProfile(profile)">{{profile.nom}}</button>
+                </mat-menu>
+                <button class="submitsiret" mat-button [matMenuTriggerFor]="menu2" class="submitsiret" [disabled]="((items.length > 0)&&(erase))? false: true" [ngStyle]="{'opacity': ((items.length > 0)&&(erase))?  '1' : '0.5'}" >effacer article</button>
+                <mat-menu #menu2="matMenu">
+                  <button mat-menu-item *ngFor="let article of items" (click)="deleteItem(article)">{{article.designation}}</button>
+                </mat-menu>
+                <button class="submitsiret" (click) = "advancedMenu()">menu avancé</button>
+                
               </div>
-              <div class="facturecontainer" id="facturecontainer">
-              <table id="facture">
-                <tr>
-                  <td>numero facture</td>
-                  <td>designation</td>
-                  <td>quantité</td>
-                  <td>prix unitaire HT</td>
-                  <td>prix unitaire TTC</td>
-                  <td>TVA</td>
-                  <td>date</td>
-                  <td>total HT</td>
-                  <td>total TTC</td>
-                </tr> 
-              </table>
-              <div>DE SIRET: {{societe.siret}}</div>
-              <div>{{societe.adresse}}</div>
-              <div>{{societe.denomination}}</div>
-            </div>
             </form>
-
+            <form class="avancemenu" id="toggle">
+            <mat-form-field appearance="fill" class="formprofil" >
+              <mat-label >Ville d'immatriculation (si activité commerciale)</mat-label >
+              <input  matInput [(ngModel)] = "profile.ville"   name="ville">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="formprofil" >
+            <mat-label >capital social (si société)</mat-label >
+              <input  matInput [(ngModel)] = "profile.capital"  type="number"  min="0"  name="capital">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="formprofil" >
+            <mat-label >numéro au répertoire des métiers et département d'immatriculation (pour les artisans) </mat-label >
+              <input  matInput [(ngModel)] = "profile.numeroRM"    min="0"  name="RM">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="formprofil" >
+            <mat-label >numéro TVA intracommunautaire(si assujetissement à la TVA, obligatoire au dessus de 150 euros HT) </mat-label >
+              <input  matInput [(ngModel)] = "profile.numeroTva"  type="text"   name="numeroTva">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="formprofil societe" >
+            <mat-label >Forme juridique </mat-label >
+              <input  matInput [(ngModel)] = "profile.formeJuridique"  type="text"  min="0"  name="formejuridique">
+          </mat-form-field>
+          
+            <mat-checkbox class="checkboxes" name="checked" [(ngModel)]="profile.conformite">garantie légale de conformité de deux ans, conformément au <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043511875">décret n° 2021-609 du 18 mai 2021.</a></mat-checkbox>
+            <mat-checkbox class="checkboxes" name="checked2" [(ngModel)]="profile.association">Membre d'une association agréée, le règlement par chèque et par carte bancaire est accepté</mat-checkbox>
+            <mat-radio-group id="tva" name="tvaradio" [(ngModel)] = "profile.TVAna">
+              <mat-radio-button value="NA">TVA non applicable, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019288110/2009-02-18">art. 293 B du Code général des impôts.</a></mat-radio-button>
+              <mat-radio-button value="autoliquid">auto-liquidation de la TVA.</mat-radio-button>
+            </mat-radio-group>
+            <mat-checkbox class="checkboxes" name="checked5"[(ngModel)]="profile.assurance">Assurance souscrite au titre de l'activité.</mat-checkbox>
+            <input type="file" class="file-input" multiple 
+            (change)="onLogoSelected($event)" #fileUpload3 >
+            <div *ngIf="fileName3 === undefined" class="file-upload" >{{fileName3 || "Vous pouvez mettre votre logo."}}
+              <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload3.click()">
+              <mat-icon>attach_file</mat-icon>
+              </button>
+            </div>
+            <textarea [(ngModel)] = "profile.informations"name="ajout" id="ajout" cols="30" rows="10" placeholder="Veuillez ajouter tout information utile"></textarea>
+            <mat-form-field class="societe">
+              <label for="societe">Etes vous une société ?</label>
+              <mat-select [(value)]="selected" required nam="societe">Etes vous une société ? 
+                <mat-option value="option1">oui</mat-option>
+                <mat-option value="option2">non</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
             
     </section>
     <section class="documentsclient">
@@ -122,19 +171,34 @@
         target="_blank"
         download="kbis"
 ><mat-icon>save_alt</mat-icon></a>
-      
-      <div *ngFor="let doc of renderDoc">
-        <div class = "documentscontainer">{{doc.nom}}
-          <mat-icon>save_alt</mat-icon>
+    <div class="facdoc">
+      <section class="documents" >
+        <h2>Vos documents</h2>
+        <mat-icon (click)="reorderDoc()">reorder</mat-icon>
+        <div  class="facturesdiv">
+          <div class="facdocfont" *ngFor="let doc of renderDoc">{{doc.nom}}
+            <mat-icon>save_alt</mat-icon>
+          </div>
         </div>
-      </div>
+      </section>  
+      <section class="factures">
+        
+        <h2>Vos factures</h2>
+        <mat-icon (click)="reorderFac()">reorder</mat-icon>
+        <div  class="facturesdiv">
+          <div class="facdocfont" *ngFor="let facture of factures">Facture No: {{facture.numero}}
+            <mat-icon>save_alt</mat-icon>
+          </div>
+        </div>
+      </section>
+    </div>
       <form *ngIf="existClient" class="registerform clientform" #registerform3 = "ngForm" name="form3">
         <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
-          <mat-label>Numero de SIRET</mat-label>
+          <mat-label>nom</mat-label>
           <input matInput [(ngModel)] = "client.nom"   name="nom">
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
-          <mat-label >Numero de SIREN</mat-label >
+          <mat-label >prenom</mat-label >
           <input matInput [(ngModel)] = "client.prenom"   name="prenom">
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
@@ -143,7 +207,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
           <mat-label>Adresse</mat-label>
-          <input matInput [(ngModel)] = "client.adresse"  readonly="true" name="adresse" required>
+          <input matInput [(ngModel)] = "client.adresse"   name="adresse" required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
           <mat-label>Email</mat-label>
@@ -153,10 +217,87 @@
           <mat-label>Telephone</mat-label>
           <input matInput [(ngModel)] = "client.telephone"  required name="telephone">
         </mat-form-field>
-        <button class="submitsiret creerfacture" (click)="creerClient()">enregistrer</button>
+        <mat-form-field appearance="fill" class="formprofil" >
+          <mat-label >Delai de paiement (en nombre de jours) </mat-label >
+            <input  matInput [(ngModel)] = "client.delaipaiement"    min="0"  name="delaiPaiement" required >
+        </mat-form-field>
+        <button class="submitsiret creerfacture" (click)="creerClient(client, societe.email)">enregistrer</button>
       </form>
+      <div class="facturecontainer" id="facturecontainer" *ngIf="facture">
+        <img [src]="'http://localhost:3000/test'" alt="logo entreprise facture" class = "logo">
+        
+       <div class="facturant">
+        <div>SIRET: {{societe.siret}}</div>
+        <div>{{societe.adresse}}</div>
+        <div *ngIf="societe.denomination !== undefined">{{profile.formeJuridique + ' ' + societe.denomination}}</div>
+        <div *ngIf="societe.denomination === undefined">{{societe.nom + ' ' + societe.prenom}}</div>
+        <div *ngIf="profile.ville !== undefined">{{societe.rcs}}</div>
+        <div *ngIf="((profile.capital !== undefined)&&(profile.capital !==0))">Capital: {{profile.capital| currency:'EUR'}} </div>
+        <div *ngIf="profile.numeroTva !== undefined">{{profile.numeroTva}}</div>
+        
+      </div>
+      <div class="facturated">
+        <div>{{client.email}}</div>
+        <div *ngIf="((client.nom !== undefined)&&(client.prenom !==undefined))">{{client.nom + " " +client.prenom}}</div>
+        <div *ngIf="client.denomination !== undefined">{{client.denomination}}</div>
+        <div>{{client.adresse}}</div>
+        <div></div>
+      </div>
+    <div class="facturediv" id="facturediv">
+      <table id="facture">
+        <tr>
+          <td class="factureheader">designation</td>
+          <td class="factureheader">quantité</td>
+          <td class="factureheader">unité</td>
+          <td class="factureheader">prix unitaire HT</td>
+          <td class="factureheader">prix unitaire TTC</td>
+          <td class="factureheader">TVA</td>
+        </tr> 
+      </table>
+      <div class="renseignements" *ngIf="renseignements">
+        <div>delai de paiement: {{client.delaipaiement}} jours</div>
+        <div *ngIf="profile.conformite">garantie légale de conformité de deux ans, conformément au <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043511875">décret n° 2021-609 du 18 mai 2021.</a></div>
+        <div *ngIf="profile.association">Membre d'une association agréée, le règlement par chèque et par carte bancaire est accepté</div>
+        <div *ngIf="profile.assurance">Assurance souscrite au titre de l'activité.</div>
+        
+        <p>{{profile.informations}}</p>
+      </div>
+    </div>
+    <table id="total">
+      <td class="totalheader">No de facture</td>
+      <td class="totalheader">Total TVA</td>
+      <td class="totalheader">Date</td>
+      <td class="totalheader">Prix HT</td>
+      <td class="totalheader">Prix TTC</td>
+      <td class="totalheader">TVA 5.5%</td>
+      <td class="totalheader">TVA 10%</td>
+      <td class="totalheader">TVA 20%</td>
+      <td class="totalheader">TVA 2.1%</td>
+    </table>
+    <div class="pagenumber">{{page}}</div>
+    </div>
     </section>
+   
+
   </main>
+  <footer class="espacefooter">
+    <section class="footermenu">
+      <a class="footertext" href="#">Connexion</a>
+      <a class="footertext" href="#">Inscription</a>
+      <a class="footertext" href="#">Tarifs</a>
+      <a class="footertext" href="#">Solutions</a>
+      <a class="footertext" href="#">Fonctionnalités</a>
+      <a class="footertext" href="#">A propos</a>
+    </section>
+    <section class="address footermenu footertext">
+        <p>Benefit</p>
+        <p>1, rue Jules Serval</p>
+        <p>69280 Venissieux</p>
+        <a class="footerlink" href="tel:+0425252525">04 25 25 25 25</a>
+        <p>benefit@benefit.com</p>
+    </section>
+  </footer>
+
   
    
   

@@ -24,5 +24,24 @@ export class DocumentsService {
     return this.http.get("http://localhost:3000/getdoc?email=" + email,{'headers': header, withCredentials: true})
   }
 
+  uploadBill(bill: any) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.post("http://localhost:3000/uploadbill" , bill ,{'headers': header, withCredentials: true})
+  }
+
+  getBill(email: any) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.get("http://localhost:3000/getbill?email=" + email ,{'headers': header, withCredentials: true})
+  }
+  
+  updateLogo(societe: any) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.post("http://localhost:3000/logo" , societe ,{'headers': header, withCredentials: true})
+  }
+
+  downloadLogo(email: any) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.get("http://localhost:3000/logo?email=" + email, {'headers': header, withCredentials: true})
+  }
 
 }

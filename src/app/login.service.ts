@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class LoginService {
   public token:string;
   public societe = {siret: '', siren: '',denomination: '', adresse: '', email: '',Kbis: '', role: '' , isActivate: '', nom: '', prenom:''}
+  public admin = {nom: '', prenom: '', email: '', telephone: '', password: ''}
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,7 @@ export class LoginService {
     return this.http.post("http://localhost:3000/update", societe, { 'headers': header,  withCredentials: true})
   }
 
-  loginAdmin(societe: any) {
-    return this.http.post("http://localhost:3000/admin", societe )
+  loginAdmin(admin: any) {
+    return this.http.post("http://localhost:3000/admin", admin)
   }
 }

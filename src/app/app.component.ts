@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AnalyticsService } from './analyticsservice.service';
 import { DocumentsService } from './documents.service';
+import { FacturationService } from './facturation.service';
 import { LoginService } from './login.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class AppComponent {
   public analytics2: boolean
   public connexion: boolean
 
-constructor(public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
+constructor(public facturation: FacturationService ,public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
   if (this.analytics.cookie === true) {
     var x = setTimeout(()=>this.cookie = true, 1000)
   }
@@ -28,7 +28,8 @@ constructor(public logincom: LoginService, private analytics: AnalyticsService, 
     this.societe.email = this.cookieService.get('login')
     this.societe.password = this.cookieService.get('password')
     this.login.login(this.societe).subscribe((v: any) => {
-      this.documents.token = v[0]
+        this.documents.token = v[0]
+        this.facturation.token = v[0]
         this.logincom.token = v[0]
         this.router.navigateByUrl('/')
         this.logincom.societe.siret = v[1][0].SIRET
