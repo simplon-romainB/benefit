@@ -12,7 +12,7 @@ $blue: #26348b
 @import '~bootstrap/dist/css/bootstrap.min.css'
 
 h1
-    font-size: 60px
+    font-size: 60px 
 
 .orange
     color: $orange
@@ -40,11 +40,26 @@ header
     position: sticky
     top: 0
     width: 100%
-    background: url("/assets/img/logoBenefit.png")
+    background: url("/assets/img/logosans.png")
     background-color: white
     background-repeat: no-repeat
     background-position: center
     z-index: 15
+    border-bottom: 1px solid $blue
+.logoanimé
+    position: relative
+    top: 17%
+    left: 40%
+    animation-name: rotation
+    animation-duration: 2s
+    animation-iteration-count: 1
+    animation-timing-function: linear
+    transform-style: preserve-3d
+@keyframes rotation
+    0%
+        transform: rotate3D(0,1,0,0deg)
+    100%
+        transform: rotate3D(0,1,0, 360deg)
 .ordreEC
     display: inline
     position: absolute
@@ -55,11 +70,13 @@ header
     font-family: "Pacifico-Regular"
 .logoEC
     display: inline-block
+    width: 35%
+    height: 16%
 .experts
     position: absolute
     display: flex
     gap: 3px
-    left: 11%
+    left: 0%
     top: 0%
 .flag
     width: 16px
@@ -69,6 +86,8 @@ nav
     display: flex
     justify-content: space-around
     color: $blue
+    position: relative
+    top: 4vh
 .mmenu
     display: none
 .rdv
@@ -145,7 +164,7 @@ nav
     width: 80%
     border: 3px solid $blue
     border-radius: 20px
-    box-shadow: 10px -5px 5px $blue
+    box-shadow: 0px -5px 5px $blue
     position: relative
     z-index: 2
     background-color: white
@@ -342,8 +361,8 @@ textarea
     position: relative
     top: 0%
 .espacefooter
-    position: relative
-    top: 188% 
+    position: absolute
+    top: 286% 
 .profilform
     height: 120vh 
     width: 100%
@@ -352,8 +371,10 @@ textarea
     width: 75%
     height: 100%
     background: linear-gradient(white,90%,$blue)
-    border: 1px solid $blue
+    border: 3px solid $blue
     overflow-y: hidden
+    border-radius: 20px
+    
 .cookiecontainer
     display: flex
     justify-content: center
@@ -484,9 +505,24 @@ textarea
     display: inline-block
     width: 50%
     height: 100vh
-    background-image: url(/assets/img/photo1.jpg)
+    background: linear-gradient(to right,white 5%, transparent ), url(/assets/img/photo1.jpg)
     background-repeat: no-repeat
     background-size: contain
+.imgdroite2
+    display: inline-block
+    width: 50%
+    height: 100vh
+    background: linear-gradient(to right,white 5%, transparent ), url(/assets/img/photo2.jpg)
+    background-repeat: no-repeat
+    background-size: contain
+.imgdroite3
+    display: inline-block
+    width: 50%
+    height: 100vh
+    background: linear-gradient(to right,white 5%, transparent ), url(/assets/img/photo3.jpg)
+    background-repeat: no-repeat
+    background-size: contain
+    
 .icons
     position: absolute
     top: 0%
@@ -502,10 +538,10 @@ textarea
     position: relative
 .titre1
     color: $blue
-    font-size: 60px 
+    font-size: 60px !important
     padding-top: 100px
-    margin-left: 60px
-    margin-right: 60px
+    margin-left: 60px !important
+    margin-right: 60px !important
 .entrepreneurs
     color: $orange
     font-size: 60px
@@ -568,16 +604,16 @@ mat-icon
     position: absolute
     top: 104%
     left: 46%
-    animation-name: animate 
+    animation-name: animate, rotation
     animation-duration: 5s
     animation-iteration-count: infinite
     animation-timing-function: linear
 
 @keyframes animate
     25%
-        transform: translateY(-12.5px)
+        transform: translateY(-6.25px)
     75%
-        transform: translateY(25px)
+        transform: translateY(12.5px)
     100%
         transform: translateY(0)
 .left
@@ -671,6 +707,10 @@ mat-icon
 .titrenombres
     color: $blue
     font-size: 1.5rem
+.mtitrenombres
+    display: none
+    color: $blue
+    font-size: 1.5rem
 .numspan
     color: $orange
     font-size: 1.5rem
@@ -748,6 +788,9 @@ mat-card span
     height: 28px
     align-self: flex-end
 /*tarifs*/
+.tarifspages
+    position: relative
+    top: 0%
 .tarifstitle
     color: $blue
     text-align: center
@@ -761,49 +804,97 @@ mat-card span
     margin-top: 60px
     border: 3px solid $blue
     box-shadow: 0px -5px 5px $blue !important
-.container 
+.maincontainer 
   width: 100%
   height: 100%
   height: calc(100vh - 150px)
 .carousel 
-  width: 100%
-  height: 100%
+  width: 50%
+  display: flex
   position: relative
-  background-color: rgb(0, 0, 0)
-.carousel-item 
+  background-color: white
+.carouselitem 
   position: relative
   background-color: rgb(255, 255, 255)
   box-shadow: 0px 0px 20px 10px rgba(255, 255, 255, 0.7)
   width: 250px
   height: 350px
-  padding: 10px
+  padding: 20px
   pointer-events: none
-.carousel-item img 
+.carouselitem img 
   width: 100%
   object-fit: cover
-.carousel-item h2 
+.carouselitem h2 
   width: 100%
   text-align: center
   text-transform: uppercase
   color: rgb(0, 0, 0)
   margin: 5px 0 10px 0
-.carousel-item p 
+.carouselitem p 
   text-align: center
   color: rgb(0, 0, 0)
   font-size: medium
   white-space: normal
   line-height: normal
+.main
+    display: flex
+    width: 100%
+#descsocial
+    width: 50%
+    
+#descjuridique
+    width: 50%
+    display: none
+    
+#desccomptable
+    display: none
+    width: 50%
+    
+.roate-button-container
+    display: flex
+    justify-content: space-evenly
+    position: absolute
+    top: 103%
+    left: -25%
+    z-index: 10
+    width: 100%
+.carouselcontainer
+    width: 100%
+    height: 100vh
+    display: flex
+.carouseldetail
+    position: absolute
+    top: 27%
+    left: 135%
+.underline4
+    width: 377px
+    height: 40px
+    position: absolute
+    top: 29%
+    left: 58%   
+.underline5
+    width: 377px
+    height: 40px
+    position: absolute
+    top: 37%
+    left: 54%   
+.underline6
+    width: 208px
+    height: 40px
+    position: absolute
+    top: 29%
+    left: 81%   
 
 
 /*footer*/
 footer
     width: 100vw
-    height: 34vh
+    height: 38vh
     position: relative
     margin-top: 60px
     background-color: $blue
     display: flex
-    justify-content: space-evenly
+    justify-content: space-around
 .footermenu
     display: flex
     flex-direction: column
@@ -815,15 +906,42 @@ footer
     text-decoration: none
     color: white
 .footertarifs
-    top: 30vh
+    top: 16vh
+.contactformulaire
+    border-radius: 20px
+    width: 40%
+    height: 38vh
+    box-shadow: 10px -5px 5px $blue
+    border: 3px solid $blue
+    position: relative
+    background-color: white
+    display: flex
+    flex-direction: column
+.titrecontact
+    text-align: center
+    margin-top: 30px
+.contactformulaire2
+    width: 100%
+    align-self: center
+    display: flex
+    flex-direction: column
+.mat-mdc-form-field-textarea-control
+    resize: none
+.contactbutton
+    align-self: center
+.buttonrecontainer
+    display: flex
+    justify-content: space-around
+    
 
 @media (max-width: 1738px)
+    header
+        background-image: url("/assets/img/logoBenefit.png")
     nav
         width: 30%
         justify-content: space evenly
-    .logoEC
-        width: 10%
-        height: 50%
+    .logoanimé
+        display: none
     .numtelephone
         display: none
     .underline
@@ -836,6 +954,18 @@ footer
         display: none
     .underline3
         display: none
+    .underline4, .underline5, .underline6
+        display: none
+@media (max-width: 1570px)
+    .mcarousel
+        display: none
+    #descsocial, #descjuridique, #desccomptable
+        width: 100%
+    .roate-button-container
+        width: 100vw
+        left: 0
+        justify-content: space-around
+    
 @media (max-width: 1308px)
     #fonctionnement
         display: none
@@ -845,9 +975,13 @@ footer
         display: none
     .mmenu
         display: block
+        position: relative
+        top: 0%
     .mmenubutton
         border: none
         background-color: white
+        position: relative
+        top: 11%
     .mlogin
         color: $orange
     .orange
@@ -901,13 +1035,15 @@ footer
         border-radius: 20px
     footer
         bottom: -236%
+    .titre1, .entrepreneurs
+        font-size: 40px
+        padding: 0
+        
 @media (max-width: 860px)
     .telbutton
         position: relative
         right: 2vw
         top: -10vh
-    .logoEC
-        transform: scale(0.5)
     .calculatrice
         display: none
     
@@ -934,7 +1070,32 @@ footer
         font-size: 18px
     .registerlink
         font-size: 18px
+    .flag
+        display: none
+@media (max-width: 612px)
+    .mtitrenombres
+        display: block
+    .titrenombres
+        display: none
+    mat-card
+        display: none !important
+    .googletitle
+        display: none
+    .apropos
+        display: none
+    .contactformulaire
+        display: none
+    .mobilediv1, .mobilediv2, .mobilediv3
+        height: 75vh
+@media (max-width: 453px)
+    .grey
+        margin-top: 0
+        margin-bottom: 0
+    .carouseldiv
+        margin-top: 200px
     
+
+
 
         
 

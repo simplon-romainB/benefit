@@ -1,16 +1,18 @@
 <p class="bandeau">Experts certifiés et basés en France</p>
 <header>
-        <img src="/assets/img/logoEC.jpg" alt="logo experts comptables" class="logoEC">
+        
         <!--<p class="ordreEC">Ordre des experts comptables</p>-->
         <div class="experts">
+            <img src="/assets/img/logo.png" alt="logo experts comptables" class="logoEC">
             <p class="orange">Experts certifiés et basés en France</p>
             <img src="/assets/img/france.png" alt="drapeau France" class="flag">
         </div>
+        <img class="logoanimé" src="/assets/img/benefitb.png" alt="logo animé">
         <nav>
             <a [routerLink]="['/tarifs']">Tarifs</a>
             <a href="#">Solutions</a>
-            <a href="#">Fonctionnalitées</a>
-            <a href="#">A propos</a>
+            <a [routerLink]="['/fonctions']">Fonctionnalitées</a>
+            <a [routerLink]="['/contact']">A propos</a>
         </nav>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="mmenu mmenubutton">
             <mat-icon>more_vert</mat-icon>

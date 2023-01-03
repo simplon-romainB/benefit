@@ -1,19 +1,82 @@
 <h1 class="tarifstitle">Découvrez nos <span class="tarifsspan">tarifs </span>adaptés à toutes les tailles d'entreprise</h1>
 
-<div class="container">  
-    <acuw-carousel #carousel class="carousel">
-        <acuw-carousel-item *ngFor="let item of carouselItems;index as i"
-           class="carousel-item">
-          <h2>Item {{ i+1 }}</h2>
-          <img [src]="item" loading="lazy" />
-          <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua.
-          </p>
+<div class="maincontainer">  
+    <div class="roate-button-container">
+        <button class="submitsiret" (click)="carousel.previous()" (click)="previousDesc()">
+          <mat-icon class="tarifspages">fast_rewind</mat-icon>
+        </button>
+        <button class="submitsiret" (click)="carousel.next()" (click)="nextDesc()">
+          <mat-icon class="tarifspages">fast_forward</mat-icon>
+        </button>
+      </div>
+  <div class="carouselcontainer ">
+    <acuw-carousel #carousel class="carousel mcarousel">
+        <acuw-carousel-item *ngFor="let item of categories;index as i"
+           class="carouselitem">
+          <h2>{{item.titre}}</h2>
+          <img [src]="item.photo" loading="lazy" />
         </acuw-carousel-item>
-      </acuw-carousel>
-    </div> 
+    </acuw-carousel>
+    <div id="descsocial">
+
+      <h1 class="titre1">Avec Benefit gerez facilement vos <span class="entrepreneurs">fiches de paie</span></h1>
+        <img class="underline4" src="/assets/img/underline-marker.webp" alt="souligné rouge">
+        <p class="grey">Créez votre entreprise en toute serenité, accompagné par nos experts-comptables </p>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>Nous vous conseillons la forme juridique adéquate</p>
+        </div>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>nous prenons en charge toutes les démarches administratives</p>
+        </div>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>Votre entreprise clefs en main !</p>
+        </div>
+        <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
+        <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+    </div>
+    <div id="descjuridique">
+    <h1 class="titre1">Benefit vous accompagne lors de vos démarches<span class="entrepreneurs"> administratives</span></h1>
+    <img class="underline5" src="/assets/img/underline-marker.webp" alt="souligné rouge">
+    <p class="grey">Créez votre entreprise en toute serenité, accompagné par nos experts-comptables </p>
+    <div class="flexcheck">
+        <mat-icon>check_circle</mat-icon>
+        <p>Nous vous conseillons la forme juridique adéquate</p>
+    </div>
+    <div class="flexcheck">
+        <mat-icon>check_circle</mat-icon>
+        <p>nous prenons en charge toutes les démarches administratives</p>
+    </div>
+    <div class="flexcheck">
+        <mat-icon>check_circle</mat-icon>
+        <p>Votre entreprise clefs en main !</p>
+    </div>
+    <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
+    <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+  </div>
+    <div id="desccomptable">
+      <h1 class="titre1">La gestion comptable de votre entreprise est notre  <span class="entrepreneurs">priorité</span></h1>
+        <img class="underline6" src="/assets/img/underline-marker.webp" alt="souligné rouge">
+        <p class="grey">Créez votre entreprise en toute serenité, accompagné par nos experts-comptables </p>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>Nous vous conseillons la forme juridique adéquate</p>
+        </div>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>nous prenons en charge toutes les démarches administratives</p>
+        </div>
+        <div class="flexcheck">
+            <mat-icon>check_circle</mat-icon>
+            <p>Votre entreprise clefs en main !</p>
+        </div>
+        <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
+        <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+    </div>
+  </div>
+</div> 
 
 
 <footer class="homefooter footertarifs">

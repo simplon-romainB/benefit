@@ -30,7 +30,7 @@
         <div class="flexcheck">
             <mat-icon>check_circle</mat-icon>
             <p>nous prenons en charge toutes les démarches administratives</p>
-        </div>
+        </div> 
         <div class="flexcheck">
             <mat-icon>check_circle</mat-icon>
             <p>Votre entreprise clefs en main !</p>
@@ -56,9 +56,10 @@
         <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
     </div> 
     <div class="imgdroite" id="imgdroite">
-    </div>
+    </div>  
 </main>
-<img class="calculatrice" src="/assets/img/calculatrice.png" alt="calculatrice cartoon">
+<img class="calculatrice" src="/assets/img/logobleu.png" alt="logo benefit bleu">
+
 <section>
     <h2 class="partenaires">Découvrez nos <span class="partenairespan">partenaires</span></h2>
     <div class="slider">
@@ -251,21 +252,24 @@
     <section class="number">
         <div class="nombres">
             <p class="titrenombres"><span class="numspan">Des dizaines </span>de dossiers traités actuellement</p>
+            <p class="mtitrenombres">Dossiers</p>
             <div class="nombrecroi" id="activites">0</div>
         </div>
         <div class="nombres">
             <p class="titrenombres"><span class="numspan">Des centaines </span>de clients ont fait confiance a Benefit </p>
+            <p class="mtitrenombres">Clients</p>
             <div class="nombrecroi" id="clients">0</div>
         </div>
         <div class="nombres">
             <p class="titrenombres"><span class="numspan">De nombreuses opérations </span>avec Benefit</p>
+            <p class="mtitrenombres">Opérations</p>
             <div class="nombrecroi" id="confiance">0</div>
         </div>
     </section>
     <div id="googleReviews"></div>
     <section class='reviews'>
     <div id="title">
-      <h4>Avis Google</h4>
+      <h4 class="googletitle">Avis Google</h4>
     </div>
     <div id="reviews" class="row">
       <mat-card *ngFor="let review of reviews" class="card">
@@ -288,7 +292,7 @@
       </mat-card>
     </div>
     <div class="rowButton">
-      <a mat-raised-button href="https://www.google.com/maps/place/BENEFIT+Expert+comptable+V%C3%A9nissieux/@45.7077831,4.8743004,15z/data=!4m7!3m6!1s0x0:0x620172c8c20bdf31!8m2!3d45.7077831!4d4.8743004!9m1!1b1" target="_blank">View all reviews</a>
+      <a mat-raised-button href="https://www.google.com/maps/place/BENEFIT+Expert+comptable+V%C3%A9nissieux/@45.7077831,4.8743004,15z/data=!4m7!3m6!1s0x0:0x620172c8c20bdf31!8m2!3d45.7077831!4d4.8743004!9m1!1b1" target="_blank">Voir tous les avis Google</a>
     </div>
     </section>
     <section class="apropos">
@@ -303,6 +307,29 @@
           <a class="footertext" href="#">Solutions</a>
           <a class="footertext" href="#">Fonctionnalités</a>
           <a class="footertext" href="#">A propos</a>
+        </section>
+        <section class="contactformulaire">
+            <h2 class="titrecontact">Contactez nous</h2>
+            <form class="contactformulaire2"   #registerform5 = "ngForm" name="form5">
+                <mat-form-field appearance="fill" >
+                  <mat-label>Email</mat-label>
+                  <input matInput [(ngModel)] = "contact.email" id="text-area"  name="nom" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill"  >
+                  <mat-label >Message</mat-label >
+                  <textarea matInput [(ngModel)] = "contact.message"   name="prenom" required ></textarea>
+                </mat-form-field>
+                <div class="buttonrecontainer">
+                    <button class="submitsiret cookiebutton contactbutton"[ngStyle]="{'opacity': (registerform5.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform5.form.invalid) || recaptcha ===''?true: false " (click)="contacter(contact,recaptcha)">Envoyer</button>
+                    <div>
+        
+                        <re-captcha (resolved)="resolved($event)"
+                              data-expired-callback="resetToken"
+                              siteKey="6Ld4jTIjAAAAAOpgYPONE64JrKuaP7Sc8sHkZYEk" required name="recaptcha">  
+                        </re-captcha>
+                      </div>
+                </div>
+            </form>
         </section>
         <section class="address footermenu footertext">
             <p>Benefit</p>

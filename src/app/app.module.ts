@@ -35,6 +35,9 @@ import { SwiperModule } from 'swiper/angular';
 import {MatCardModule} from '@angular/material/card';
 import { TarifsComponent } from './tarifs/tarifs.component';
 import { CarouselModule } from 'ngx-acuw';
+import { ImageTransitionModule } from 'ngx-acuw';
+import { FonctionsComponent } from './fonctions/fonctions.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -52,7 +55,9 @@ import { CarouselModule } from 'ngx-acuw';
     EspaceClientComponent,
     AdmindetailsComponent,
     HomeComponent,
-    TarifsComponent
+    TarifsComponent,
+    FonctionsComponent,
+    ContactComponent
     
   ],
   imports: [
@@ -79,7 +84,8 @@ import { CarouselModule } from 'ngx-acuw';
     MatSidenavModule,
     SwiperModule,
     MatCardModule,
-    CarouselModule
+    CarouselModule,
+    ImageTransitionModule
     
   ],
   providers: [AnalyticsService, CookieService],

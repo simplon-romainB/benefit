@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import * as $ from 'jquery'
 import * as L from 'leaflet';
+import { ContactService } from '../contact.service';
 
 declare const google: any;
 
@@ -24,12 +25,15 @@ export class HomeComponent implements OnInit {
   private z: any
   public service: any;
   public reviews: any = [];
+  public divarrays = ['/assets/img/photo1.jpg','/assets/img/photo2.jpg' ,'/assets/img/photo3.jpg' ]
+  public contact = {email: '', message: ''}
+  public recaptcha: string
   
   
   
 
 
-  constructor(public renderer: Renderer2) {
+  constructor(public contactService: ContactService, public renderer: Renderer2) {
    this.x = setInterval(()=>{this.switch()},10000)
    this.y = setInterval(()=>{this.switchInc()},10000)
    this.z = setInterval(()=>{this.prestaSwipe()},10000)
@@ -261,22 +265,28 @@ initMap(): void {
 
     if (this.imageCount === 1) {
       
-      document.getElementById('imgdroite').style.backgroundImage = "url(" + divarrays[1] + ")"
+      document.getElementById('imgdroite').classList.remove("imgdroite")
+      document.getElementById('imgdroite').classList.add("imgdroite2")
+      document.getElementById('imgdroite').classList.remove("imgdroite3")
       this.imageCount++
         
       
     }
     else if (this.imageCount === 2) {
-      document.getElementById('imgdroite').style.backgroundImage = "url(" + divarrays[2] + ")"
+      document.getElementById('imgdroite').classList.remove("imgdroite")
+      document.getElementById('imgdroite').classList.remove("imgdroite2")
+      document.getElementById('imgdroite').classList.add("imgdroite3")
       this.imageCount = 0
     }
     else if(this.imageCount === 0) {
-      document.getElementById('imgdroite').style.backgroundImage = "url(" + divarrays[0] + ")"
+      document.getElementById('imgdroite').classList.add("imgdroite")
+      document.getElementById('imgdroite').classList.remove("imgdroite2")
+      document.getElementById('imgdroite').classList.remove("imgdroite3")
       this.imageCount++
 
     }
   }
-
+remove
   backSwitch() {
     let divarrays = ['div1', 'div2', 'div3']
 
@@ -360,8 +370,14 @@ initMap(): void {
       this.translate = 0
     }
   }
-}
-function ngOnDestroy() {
-  throw new Error('Function not implemented.');
+  resolved(captchaResponse: string) {  
+    this.recaptcha = captchaResponse;
+  } 
+  contacter(contact: any, recaptcha: string) {
+    this.contactService.contact(contact,recaptcha).subscribe((v)=>{
+      console.log(v)
+    })
+
+  }
 }
 

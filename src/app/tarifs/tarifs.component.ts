@@ -6,18 +6,59 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tarifs.component.sass']
 })
 export class TarifsComponent implements OnInit {
-  carouselItems = [
-    'https://source.unsplash.com/7BLRSG-AkJs',
-    'https://source.unsplash.com/rcJbbK5_iIA',
-    'https://source.unsplash.com/yQUwIlUeU4o',
-    'https://source.unsplash.com/MlaQmWvzRTw',
-    'https://source.unsplash.com/6dTpYUcr1yg',
-  ];
+  public categories = [{titre: "Pole Social", photo:"/assets/img/logovert.png", texte:"blabla"},
+                       {titre: "Pole juridique", photo:"/assets/img/logomagenta.png", texte:"blabla"},
+                       {titre: "Pole expertise comptable", photo:"/assets/img/logobleu.png", texte:"blabla"}
+                      ]
+  public next = 0
+  public previous = 0
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
+  nextDesc() {
+    if (this.next === 0) {
+      document.getElementById("descsocial").style.display = "none"
+      document.getElementById("descjuridique").style.display = "block"
+      document.getElementById("desccomptable").style.display = "none"
+      this.next ++
+    }
+    else if (this.next === 1) {
+      document.getElementById("descsocial").style.display = "none"
+      document.getElementById("descjuridique").style.display = "none"
+      document.getElementById("desccomptable").style.display = "block"
+      this.next ++
+    }
+    else {
+      document.getElementById("descsocial").style.display = "block"
+      document.getElementById("descjuridique").style.display = "none"
+      document.getElementById("desccomptable").style.display = "none"
+      this.next = 0
+    }
+    
+  }
 
+  previousDesc() {
+    if (this.next === 0) {
+      document.getElementById("descsocial").style.display = "none"
+      document.getElementById("descjuridique").style.display = "none"
+      document.getElementById("desccomptable").style.display = "block"
+      this.next = 2
+    }
+    else if (this.next === 2) {
+      document.getElementById("descsocial").style.display = "none"
+      document.getElementById("descjuridique").style.display = "block"
+      document.getElementById("desccomptable").style.display = "none"
+      this.next --
+    }
+    else {
+      document.getElementById("descsocial").style.display = "block"
+      document.getElementById("descjuridique").style.display = "none"
+      document.getElementById("desccomptable").style.display = "none"
+      this.next --
+    }
+  }
 
 }

@@ -5,6 +5,7 @@ import { AnalyticsService } from './analyticsservice.service';
 import { DocumentsService } from './documents.service';
 import { FacturationService } from './facturation.service';
 import { LoginService } from './login.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,15 @@ export class AppComponent {
   public analytics2: boolean
   public connexion: boolean
 
-constructor(public facturation: FacturationService ,public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
+constructor(private meta: Meta, private title: Title,public facturation: FacturationService ,public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
+  this.meta.addTags([
+    {name: 'description', content: "site web de la société Benefit cabinet d'expertise comptable situé à Venissieux dans la banlieue de Lyon"},
+    {name: 'author', content: 'Barry Romain'},
+    {name: 'keywords', content: "comptabilité juridique social fiche de paie entreprise autoentrepreneur création d'entreprise"},
+    {name: 'robots', content: 'index, follow'}
+  ]);
+  this.title.setTitle('Benefit');
+  
   if (this.analytics.cookie === true) {
     var x = setTimeout(()=>this.cookie = true, 1000)
   }
