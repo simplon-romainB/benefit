@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  NODE_HTTP_SERVER_SSL_PASSPHRASE: 'Magicstar198.'
 };

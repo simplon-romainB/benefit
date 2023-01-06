@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AnalyticsService } from './analyticsservice.service';
@@ -6,20 +6,21 @@ import { DocumentsService } from './documents.service';
 import { FacturationService } from './facturation.service';
 import { LoginService } from './login.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { SwPush } from "@angular/service-worker";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public cookie = false
   public choice: boolean
   private societe = {email: '', password: ''}
   public analytics2: boolean
   public connexion: boolean
 
-constructor(private meta: Meta, private title: Title,public facturation: FacturationService ,public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
+constructor(private _swPush: SwPush, private meta: Meta, private title: Title,public facturation: FacturationService ,public logincom: LoginService, private analytics: AnalyticsService, private cookieService:CookieService, private login: LoginService, public router: Router, public documents: DocumentsService) {
   this.meta.addTags([
     {name: 'description', content: "site web de la société Benefit cabinet d'expertise comptable situé à Venissieux dans la banlieue de Lyon"},
     {name: 'author', content: 'Barry Romain'},
@@ -27,7 +28,7 @@ constructor(private meta: Meta, private title: Title,public facturation: Factura
     {name: 'robots', content: 'index, follow'}
   ]);
   this.title.setTitle('Benefit');
-  
+  this.requestSubscription();
   if (this.analytics.cookie === true) {
     var x = setTimeout(()=>this.cookie = true, 1000)
   }
@@ -54,9 +55,13 @@ constructor(private meta: Meta, private title: Title,public facturation: Factura
     })
   }
 }
+
 cookieToggle() {
   this.cookie ? this.cookie = false : this.cookie = true
   this.choice = false
+}
+ngOnInit() {
+  
 }
 acceptAll() {
   this.analytics.startTracking()
@@ -88,4 +93,18 @@ changeCookies() {
   }
   this.cookie = false
 } 
+requestSubscription()  {
+  console.log("ok")
+  this._swPush.requestSubscription({
+    serverPublicKey: 'BByYFQkifIAHNj4V4kmemHPU7RLW7YjSbYim1Rowy4cL_GWin9HdTYISCPLpIIClstAxrjUZkh6TQz9O4OX2u-8'
+  }).then((_) => {
+    console.log("notif ok")
+    console.log(JSON.stringify(_));
+  }).catch((_) => console.log);
+  if (!this._swPush.isEnabled) {
+    console.log("Notification is not enabled.");
+    return;
+  }
+};
+
 }

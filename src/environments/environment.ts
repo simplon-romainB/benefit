@@ -20,7 +20,9 @@ export const environment = {
   
     measurementId: "G-KHFE1JNCSZ"
   
-  }
+    
+  },
+  NODE_HTTP_SERVER_SSL_PASSPHRASE: 'Magicstar198.'
   
 };
 
