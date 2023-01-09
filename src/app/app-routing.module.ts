@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RgpdComponent } from './rgpd/rgpd.component';
+import { SolutionsComponent } from './solutions/solutions.component';
 import { TarifsComponent } from './tarifs/tarifs.component';
 
 const routes: Routes = [{ path: 'register', component: RegisterComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [{ path: 'register', component: RegisterComponent },
                         { path: 'tarifs', component: TarifsComponent},
                         { path: '', redirectTo: 'home', pathMatch: 'full'},
                         { path: 'fonctions', component: FonctionsComponent},
-                        { path: 'contact', component: ContactComponent}
+                        { path: 'contact', component: ContactComponent},
+                        { path: "solutions", component: SolutionsComponent}
 
                         
 

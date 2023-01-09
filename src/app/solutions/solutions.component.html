@@ -1,0 +1,60 @@
+<h1 class="titre1 titresolutions">Des solutions pour <span class="entrepreneurs">toutes les entreprises</span></h1>
+<img class="underline underline8" src="/assets/img/underline-marker.webp" alt="souligné rouge">
+<div class="radiocontainer">
+    <mat-form-field>
+        <mat-select placeholder="Type d'entreprise" [(value)] = "entreprise" name="enter">
+          <mat-option *ngFor="let entreprise of entreprises" [value]="entreprise.name" (click)="choose(entreprise)">
+            {{entreprise.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>     
+</div>
+<div class="mainsolutions">
+    <div class="entreprisesol">
+        <div class="entrsolelem">{{entreprise.name}}</div>
+        <img class="underline10" src="/assets/img/underline-marker.webp" alt="souligné rouge" *ngIf="entreprise.name !== ''">
+    </div>
+    <div class="entreprisesol2">
+        <div class="entrsolelem2">{{entreprise.description}}</div>
+    </div>
+</div>
+<footer class="homefooter">
+    <section class="footermenu">
+      <a class="footertext" href="#">Connexion</a>
+      <a class="footertext" href="#">Inscription</a>
+      <a class="footertext" href="#">Tarifs</a>
+      <a class="footertext" href="#">Solutions</a>
+      <a class="footertext" href="#">Fonctionnalités</a>
+      <a class="footertext" href="#">A propos</a>
+    </section>
+    <section class="contactformulaire">
+        <h2 class="titrecontact">Contactez nous</h2>
+        <form class="contactformulaire2"   #registerform5 = "ngForm" name="form5">
+            <mat-form-field appearance="fill" >
+              <mat-label>Email</mat-label>
+              <input matInput [(ngModel)] = "contact.email" id="text-area"  name="nom" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill"  >
+              <mat-label >Message</mat-label >
+              <textarea matInput [(ngModel)] = "contact.message"   name="prenom" required ></textarea>
+            </mat-form-field>
+            <div class="buttonrecontainer">
+                <button class="submitsiret cookiebutton contactbutton"[ngStyle]="{'opacity': (registerform5.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform5.form.invalid) || recaptcha ===''?true: false " (click)="contacter(contact,recaptcha)">Envoyer</button>
+                <div>
+    
+                    <re-captcha (resolved)="resolved($event)"
+                          data-expired-callback="resetToken"
+                          siteKey="6Ld4jTIjAAAAAOpgYPONE64JrKuaP7Sc8sHkZYEk" required name="recaptcha">  
+                    </re-captcha>
+                  </div>
+            </div>
+        </form>
+    </section>
+    <section class="address footermenu footertext">
+        <p>Benefit</p>
+        <p>1, rue Jules Serval</p>
+        <p>69280 Venissieux</p>
+        <a class="footerlink" href="tel:+0425252525">04 25 25 25 25</a>
+        <p>benefit@benefit.com</p>
+    </section>
+  </footer>

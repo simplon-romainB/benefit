@@ -39,6 +39,7 @@ import { ImageTransitionModule } from 'ngx-acuw';
 import { FonctionsComponent } from './fonctions/fonctions.component';
 import { ContactComponent } from './contact/contact.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SolutionsComponent } from './solutions/solutions.component';
 
 
 
@@ -58,7 +59,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HomeComponent,
     TarifsComponent,
     FonctionsComponent,
-    ContactComponent
+    ContactComponent,
+    SolutionsComponent
     
   ],
   imports: [

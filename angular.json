@@ -79,7 +79,7 @@
             },
             "development": {
               "browserTarget": "Benefit:build:development",
-              "ssl": true
+              
             }
           },
           "defaultConfiguration": "development"

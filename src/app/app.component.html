@@ -9,10 +9,10 @@
         </div>
         <img class="logoanimé" src="/assets/img/benefitb.png" alt="logo animé">
         <nav>
-            <a [routerLink]="['/tarifs']">Tarifs</a>
-            <a href="#">Solutions</a>
-            <a [routerLink]="['/fonctions']">Fonctionnalitées</a>
-            <a [routerLink]="['/contact']">A propos</a>
+            <div class="menucartouche"><a class="navmenu" [routerLink]="['/tarifs']">Tarifs</a></div>
+            <div class="menucartouche"><a class="navmenu"  [routerLink]="['/solutions']">Solutions</a></div>
+            <div class="menucartouche"><a class="navmenu" [routerLink]="['/fonctions']">Fonctionnalitées</a></div>
+            <div class="menucartouche"><a class="navmenu" [routerLink]="['/rgpd']">A propos</a></div>
         </nav>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="mmenu mmenubutton">
             <mat-icon>more_vert</mat-icon>
@@ -34,7 +34,7 @@
                 <a href="#">Fonctionnalitées</a>
             </button>
             <button mat-menu-item>
-                <a href="#">A propos</a>
+                <a [routerLink]="['/rgpd']">A propos</a>
             </button>
           </mat-menu>
           

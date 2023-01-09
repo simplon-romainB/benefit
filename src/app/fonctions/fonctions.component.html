@@ -1,1 +1,95 @@
-
+<img class="calculatrice funcalc" src="/assets/img/logobleu.png" alt="logo benefit bleu">
+<img class="calculatrice funcalc2" src="/assets/img/logobleu.png" alt="logo benefit bleu">
+<main class="fonctionsmain">
+    <div class="foncflex1 commonflex">
+        <h2 class="flextitle">Facturation</h2>
+        <div class="descontainer">
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">un outil de facturation gratuit !</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Toutes les éxigeances légales</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Exportation au format PDF</h3>
+            </div>
+        </div>
+    </div>
+    <div class="foncflex2 commonflex">
+        <h2 class="flextitle">Notifications</h2>
+        <div class="descontainer">
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Des alertes pour vos échéances</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Application mobile</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Norifications personnalisées</h3>
+            </div>
+        </div>
+    </div>
+    <div class="foncflex3 commonflex">
+        <h2 class="flextitle">Pilotage et tenue comptable</h2>
+        <div class="descontainer">
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Des alertes pour vos échéances</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Application mobile</h3>
+            </div>
+            <div class="flexfunc">
+                <mat-icon class="iconfonc">check_circle</mat-icon>
+                <h3 class="textfonc">Norifications personnalisées</h3>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="homefooter">
+    <section class="footermenu">
+      <a class="footertext" href="#">Connexion</a>
+      <a class="footertext" href="#">Inscription</a>
+      <a class="footertext" href="#">Tarifs</a>
+      <a class="footertext" href="#">Solutions</a>
+      <a class="footertext" href="#">Fonctionnalités</a>
+      <a class="footertext" href="#">A propos</a>
+    </section>
+    <section class="contactformulaire">
+        <h2 class="titrecontact">Contactez nous</h2>
+        <form class="contactformulaire2"   #registerform5 = "ngForm" name="form5">
+            <mat-form-field appearance="fill" >
+              <mat-label>Email</mat-label>
+              <input matInput [(ngModel)] = "contact.email" id="text-area"  name="nom" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill"  >
+              <mat-label >Message</mat-label >
+              <textarea matInput [(ngModel)] = "contact.message"   name="prenom" required ></textarea>
+            </mat-form-field>
+            <div class="buttonrecontainer">
+                <button class="submitsiret cookiebutton contactbutton"[ngStyle]="{'opacity': (registerform5.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform5.form.invalid) || recaptcha ===''?true: false " (click)="contacter(contact,recaptcha)">Envoyer</button>
+                <div>
+    
+                    <re-captcha (resolved)="resolved($event)"
+                          data-expired-callback="resetToken"
+                          siteKey="6Ld4jTIjAAAAAOpgYPONE64JrKuaP7Sc8sHkZYEk" required name="recaptcha">  
+                    </re-captcha>
+                  </div>
+            </div>
+        </form>
+    </section>
+    <section class="address footermenu footertext">
+        <p>Benefit</p>
+        <p>1, rue Jules Serval</p>
+        <p>69280 Venissieux</p>
+        <a class="footerlink" href="tel:+0425252525">04 25 25 25 25</a>
+        <p>benefit@benefit.com</p>
+    </section>
+  </footer>

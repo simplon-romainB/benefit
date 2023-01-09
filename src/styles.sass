@@ -8,6 +8,8 @@
     src: url("/assets/fonts/Pacifico-Regular.ttf")
 $orange: #ea5B0c
 $blue: #26348b
+.orange
+    color: $orange
 
 @import '~bootstrap/dist/css/bootstrap.min.css'
 
@@ -33,6 +35,12 @@ body
 button
     cursor: pointer
 //header//
+.menucartouche
+    border: 1px solid $blue
+    border-radius: 20px
+    padding: 0.4vw
+    
+
 .bandeau
     display: none
 header
@@ -87,7 +95,7 @@ nav
     justify-content: space-around
     color: $blue
     position: relative
-    top: 4vh
+    top: 0%
 .mmenu
     display: none
 .rdv
@@ -932,7 +940,103 @@ footer
 .buttonrecontainer
     display: flex
     justify-content: space-around
-    
+/*fonctionalitées*/
+.fonctionsmain
+    display: flex
+    justify-content: space-evenly
+    width: 100vw
+    height: 100vh
+    margin-top: 200px
+.descontainer
+    width: 100%   
+    height: 75%
+    display: flex
+    flex-direction: column
+    padding-top: 100px
+
+.flexfunc
+    display: flex
+    flex-direction: row
+.funcalc
+    position: absolute
+    top: 37%
+    left: 79%   
+.funcalc2
+    position: absolute
+    top: 127%
+    left: 16%
+.foncflex1
+    align-self: flex-start
+.foncflex2
+    align-self: center
+.foncflex3
+    align-self: flex-end
+.commonflex
+    width: 25%
+    height: 75vh
+    border: 3px solid $blue
+    background-color: white
+    border-radius: 20px
+    box-shadow: 10px -5px 5px $blue
+    transition: all 0.5s
+.commonflex:hover
+    transform: scale(1.1)
+.flextitle
+    text-align: center
+    color: $blue
+    margin-top: 100px
+.iconfonc
+    align-self: center
+.textfonc
+    color: $orange
+/*solutions*/ 
+.titresolutions
+    text-align: center
+.underline8
+    top: 34%
+    left: 48%
+    width: 624px
+.radiocontainer
+    display: flex
+    justify-content: center
+    margin-top: 100px
+.mainsolutions
+    display: flex
+    width: 75%
+    height: 75vh
+    position: relative
+    left: 12.5%
+    border: 3px solid $blue
+    border-radius: 20px
+    box-shadow: 10px -5px 5px $blue
+.entreprisesol
+    display: inline-flex
+    width: 50%
+    height: 100%
+    flex-direction: column
+    align-items: center
+    justify-content: center
+.entreprisesol2
+    display: inline-flex
+    width: 50%
+    height: 100%
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+.entrsolelem
+    color: $orange
+    font-size: 60px
+.entrsolelem2
+    color: $blue
+    font-size: 45px
+.underline10
+    width: 431px
+    height: 40px
+    position: absolute
+    top: 53%
+    left: 9%
+
+
 
 @media (max-width: 1738px)
     header
