@@ -1,3 +1,4 @@
+<h2 class="titre1 titreclient">Votre espace <span class="entrepreneurs">client</span></h2>
 <main class="maincontainer">
   <mat-icon class="decobutton" (click)="disconnect()">open_in_new</mat-icon>
     <section class="donneesclient">
@@ -146,38 +147,36 @@
             
     </section>
     <section class="documentsclient">
-        <input type="file" class="file-input" multiple 
+      <div class="kbiscontainer">
+        <a href="{{'http://localhost:3000/' + societe.Kbis}}" download="kbis" class="dlkbis">Telechargez votre Kbis<mat-icon>save_alt</mat-icon></a>
+      </div>
+        <input type="file" class="file-input"  accept=".pdf,.jpg,.png"
        (change)="onFileSelected($event)" #fileUpload >
 
-      <div class="file-upload" >{{fileName || "Veuillez ajouter votre document."}}
+      <div class="file-upload" >{{fileName || "Veuillez ajouter votre document (pdf, jpg ou png)."}}
 
         <button mat-mini-fab color="primary" class="upload-btn"
             (click)="fileUpload.click()">
             <mat-icon>attach_file</mat-icon>
         </button>
       </div>
-      <input type="file" class="file-input" multiple 
+      <input type="file" class="file-input"  accept=".pdf,.jpg,.png"
        (change)="onKbisSelected($event)" #fileUpload2 >
 
-      <div class="file-upload" >{{fileName2 || "Vous pouvez mettre à jour votre Kbis."}}
+      <div class="file-upload" >{{fileName2 || "Vous pouvez mettre à jour votre Kbis (pdf, jpg ou png)."}}
 
         <button mat-mini-fab color="primary" class="upload-btn"
             (click)="fileUpload2.click()">
             <mat-icon>attach_file</mat-icon>
         </button>
       </div>
-      <img [src]="'https://kbis-express.fr/webroot/front/imgs/kbis-doc.jpg'" alt="Kbis" *ngIf="this.societe.Kbis !== null">
-      <a href="https://kbis-express.fr/webroot/front/imgs/kbis-doc.jpg"
-        target="_blank"
-        download="kbis"
-><mat-icon>save_alt</mat-icon></a>
     <div class="facdoc">
       <section class="documents" >
         <h2>Vos documents</h2>
         <mat-icon (click)="reorderDoc()">reorder</mat-icon>
         <div  class="facturesdiv">
           <div class="facdocfont" *ngFor="let doc of renderDoc">{{doc.nom}}
-            <mat-icon>save_alt</mat-icon>
+            <a href="{{'http://localhost:3000/' + doc.path}}" download="document"><mat-icon>save_alt</mat-icon></a>
           </div>
         </div>
       </section>  
@@ -187,7 +186,7 @@
         <mat-icon (click)="reorderFac()">reorder</mat-icon>
         <div  class="facturesdiv">
           <div class="facdocfont" *ngFor="let facture of factures">Facture No: {{facture.numero}}
-            <mat-icon>save_alt</mat-icon>
+            <a href="{{'http://localhost:3000/' + facture.path}}" download="document"><mat-icon>save_alt</mat-icon></a>
           </div>
         </div>
       </section>
@@ -211,20 +210,20 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
           <mat-label>Email</mat-label>
-          <input matInput [(ngModel)] = "client.email"  required name="email" required >
+          <input matInput [(ngModel)] = "client.email"  required name="email" required pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$">
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
           <mat-label>Telephone</mat-label>
-          <input matInput [(ngModel)] = "client.telephone"  required name="telephone">
+          <input matInput [(ngModel)] = "client.telephone"  required name="telephone" minlength="10" maxlength="10" type="number">
         </mat-form-field>
         <mat-form-field appearance="fill" class="formprofil" >
           <mat-label >Delai de paiement (en nombre de jours) </mat-label >
-            <input  matInput [(ngModel)] = "client.delaipaiement"    min="0"  name="delaiPaiement" required >
+            <input  matInput [(ngModel)] = "client.delaipaiement" type="number"   min="0"  name="delaiPaiement" required >
         </mat-form-field>
-        <button class="submitsiret creerfacture" (click)="creerClient(client, societe.email)">enregistrer</button>
+        <button class="submitsiret creerfacture" [ngStyle]="{'opacity':  registerform3.form.invalid ? '0.5' : '1'}" [disabled]="registerform3.form.invalid? true: false"(click)="creerClient(client, societe.email)">enregistrer</button>
       </form>
       <div class="facturecontainer" id="facturecontainer" *ngIf="facture">
-        <img [src]="'http://localhost:3000/test'" alt="logo entreprise facture" class = "logo">
+        <img src="{{'http://localhost:3000/' + logo}}" alt="logo entreprise facture" class = "logo">
         
        <div class="facturant">
         <div>SIRET: {{societe.siret}}</div>
@@ -289,6 +288,29 @@
       <a class="footertext" href="#">Fonctionnalités</a>
       <a class="footertext" href="#">A propos</a>
     </section>
+    <section class="contactformulaire">
+      <h2 class="titrecontact">Contactez nous</h2>
+      <form class="contactformulaire2"   #registerform5 = "ngForm" name="form5">
+          <mat-form-field appearance="fill" >
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)] = "contact.email" id="text-area"  name="nom" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill"  >
+            <mat-label >Message</mat-label >
+            <textarea matInput [(ngModel)] = "contact.message"   name="prenom" required ></textarea>
+          </mat-form-field>
+          <div class="buttonrecontainer">
+              <button class="submitsiret cookiebutton contactbutton"[ngStyle]="{'opacity': (registerform5.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform5.form.invalid) || recaptcha ===''?true: false " (click)="contacter(contact,recaptcha)">Envoyer</button>
+              <div>
+  
+                  <re-captcha (resolved)="resolved($event)"
+                        data-expired-callback="resetToken"
+                        siteKey="6Ld4jTIjAAAAAOpgYPONE64JrKuaP7Sc8sHkZYEk" required name="recaptcha">  
+                  </re-captcha>
+                </div>
+          </div>
+      </form>
+  </section>
     <section class="address footermenu footertext">
         <p>Benefit</p>
         <p>1, rue Jules Serval</p>

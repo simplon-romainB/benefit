@@ -12,7 +12,7 @@ import { UserprofileService } from '../userprofile.service';
 export class AdminComponent implements OnInit {
   public admin = {nom: "", prenom: "" , email: "", telephone:"", password: ""}
 
-  constructor(public login: LoginService, private router: Router, private userProfile: UserprofileService) { }
+  constructor(public loginService: LoginService, public login: LoginService, private router: Router, private userProfile: UserprofileService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +23,7 @@ loginAdmin(admin: any) {
     this.login.admin.prenom = v[1][0].prenom
     this.login.admin.email = v[1][0].email 
     this.login.admin.telephone = v[1][0].telephone
+    this.loginService.token = v[0]
     this.userProfile.token = v[0]
     this.router.navigateByUrl("/admindetails")
   })

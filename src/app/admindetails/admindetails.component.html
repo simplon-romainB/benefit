@@ -1,3 +1,6 @@
+<div class="admintitle">
+  <h2 class="titre1">Administration</h2>
+</div>
 <main class="maincontainer">
     <mat-icon class="decobutton" (click)="deconnexion()">open_in_new</mat-icon>
       <section class="donneesclient">
@@ -26,6 +29,7 @@
                     <mat-label>confirmation du mot de passe</mat-label>
                     <input matInput [(ngModel)] = "admin.confirmpassword"   name="confirmpassword">
                   </mat-form-field>
+                  <button class="submitsiret" (click)="updateProfil(admin)">mettre à jour le profil</button>
             </form>
         </section>
         <section class="client">
@@ -43,6 +47,19 @@
               <p *ngIf="client.SIRET !== ''">{{client.SIRET}}</p>
               <p *ngIf="client.SIREN !== ''">{{client.SIREN}}</p>
               <p>{{client.adresse}}</p>
+              <div class="adminbuttoncontainer">
+                <button class="submitsiret" (click)="addSiret(this.siret)">Ajouter Siret</button>
+                <button class="submitsiret" (click)="deleteClient()">supprimer client</button>
+                <button class="submitsiret" (click)="sendMail(body)" (click)="sendNotif(client.email)">Notifier client</button>
+              </div>
+              <mat-form-field appearance="fill" class="formregister addsiret" >
+                <mat-label >Siret</mat-label >
+                <input matInput [(ngModel)] = "siret"   type="text" name="siret">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formregister addsiret" >
+                <mat-label >message</mat-label >
+                <textarea matInput [(ngModel)] = "body.message"   type="text" name="message"></textarea>
+              </mat-form-field>
             </div>
           </div>
         </section>

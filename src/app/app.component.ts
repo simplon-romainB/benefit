@@ -41,6 +41,7 @@ constructor(private _swPush: SwPush, private meta: Meta, private title: Title,pu
         this.documents.token = v[0]
         this.facturation.token = v[0]
         this.logincom.token = v[0]
+        this.login.token = v[0]
         this.router.navigateByUrl('/')
         this.logincom.societe.siret = v[1][0].SIRET
         this.logincom.societe.siren = v[1][0].SIREN
@@ -96,7 +97,7 @@ changeCookies() {
 requestSubscription()  {
   console.log("ok")
   this._swPush.requestSubscription({
-    serverPublicKey: 'BByYFQkifIAHNj4V4kmemHPU7RLW7YjSbYim1Rowy4cL_GWin9HdTYISCPLpIIClstAxrjUZkh6TQz9O4OX2u-8'
+    serverPublicKey: 'BNzNoUKBPzr1FgZxVFbk__q8BdnICtjib4kWnouSkSxUcsiIN_O2uItaRJGlmh4iLJWoZmRdFDUgwAKq25WOK3A'
   }).then((_) => {
     console.log("notif ok")
     console.log(JSON.stringify(_));

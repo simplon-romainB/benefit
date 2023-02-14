@@ -35,7 +35,7 @@
             <p>Votre entreprise clefs en main !</p>
         </div>
         <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
-        <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+        <p class="entrepreneurs entre2">A partir de 25€ HT/mois</p>
     </div>
     <div id="descjuridique">
     <h1 class="titre1">Benefit vous accompagne lors de vos démarches<span class="entrepreneurs"> administratives</span></h1>
@@ -54,7 +54,7 @@
         <p>Votre entreprise clefs en main !</p>
     </div>
     <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
-    <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+    <p class="entrepreneurs entre2">A partir de 25€ HT/mois</p>
   </div>
     <div id="desccomptable">
       <h1 class="titre1">La gestion comptable de votre entreprise est notre  <span class="entrepreneurs">priorité</span></h1>
@@ -73,7 +73,9 @@
             <p>Votre entreprise clefs en main !</p>
         </div>
         <p class="grey">Afin d'obtenir un devis gratuit inscrivez vous <a class="registerlink" [routerLink]="['/register']">ici</a> ou contactez nous par téléphone au<a class="registerlink" href="tel:+04525252"> 0452525252</a> </p>
-        <p class="entrepreneurs">A partir de 25€ HT/mois</p>
+        <div class="mentrepreneurs">
+          <p class="entrepreneurs entre2">A partir de 25€ HT/mois</p>
+        </div>
     </div>
   </div>
 </div> 
@@ -88,6 +90,29 @@
       <a class="footertext" href="#">Fonctionnalités</a>
       <a class="footertext" href="#">A propos</a>
     </section>
+    <section class="contactformulaire">
+      <h2 class="titrecontact">Contactez nous</h2>
+      <form class="contactformulaire2"   #registerform5 = "ngForm" name="form5">
+          <mat-form-field appearance="fill" >
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)] = "contact.email" id="text-area"  name="nom" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill"  >
+            <mat-label >Message</mat-label >
+            <textarea matInput [(ngModel)] = "contact.message"   name="prenom" required ></textarea>
+          </mat-form-field>
+          <div class="buttonrecontainer">
+              <button class="submitsiret cookiebutton contactbutton"[ngStyle]="{'opacity': (registerform5.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform5.form.invalid) || recaptcha ===''?true: false " (click)="contacter(contact,recaptcha)">Envoyer</button>
+              <div>
+  
+                  <re-captcha (resolved)="resolved($event)"
+                        data-expired-callback="resetToken"
+                        siteKey="6Ld4jTIjAAAAAOpgYPONE64JrKuaP7Sc8sHkZYEk" required name="recaptcha">  
+                  </re-captcha>
+                </div>
+          </div>
+      </form>
+  </section>
     <section class="address footermenu footertext">
         <p>Benefit</p>
         <p>1, rue Jules Serval</p>

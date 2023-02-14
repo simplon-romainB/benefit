@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit {
           
         }
       });
-    })//ChIJ35oygBLC9EcRsfDUxeHW3po
+    })
   }
   ngAfterViewInit() {
     const request = {

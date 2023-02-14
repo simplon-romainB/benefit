@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../analyticsservice.service';
 import { DocumentsService } from '../documents.service';
 import { LoginService } from '../login.service';
-import * as XLSX from 'xlsx';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { Router } from '@angular/router';
 import { FacturationService } from '../facturation.service';
 import { Profil } from '../profil.model';
+import { ContactService } from '../contact.service';
 
 
 
@@ -82,10 +82,12 @@ export class EspaceClientComponent implements OnInit {
   public tva10: number = 0
   public renseignements: boolean
   public numerofacture: number
+  public recaptcha: string
+  public contact = {email: '', message: ''}
   
   
   
-  constructor( private router: Router,  public facturation: FacturationService,public logincom: LoginService, public documents: DocumentsService, private analytics: AnalyticsService, public route : Router) {
+  constructor( private contactService: ContactService, private router: Router,  public facturation: FacturationService,public logincom: LoginService, public documents: DocumentsService, private analytics: AnalyticsService, public route : Router) {
     this.societe.siret = this.logincom.societe.siret
     this.societe.siren = this.logincom.societe.siren
     this.societe.denomination = this.logincom.societe.denomination
@@ -96,7 +98,6 @@ export class EspaceClientComponent implements OnInit {
     this.societe.isActivate = this.logincom.societe.isActivate
     this.societe.nom = this.logincom.societe.nom
     this.societe.prenom = this.logincom.societe.prenom
-    console.log(this.facturation.token)
     this.getDoc(this.societe.email)
     this.analytics.trackVirtualPageview("espaceClient")
     this.getClient()
@@ -214,7 +215,11 @@ onLogoSelected(event: any) {
       formData.append("prenomdirigeant", this.societe.prenom);
       this.postDatas(formData)
       this.documents.updateLogo(this.transData).subscribe((v)=>{
+        
+      })
+      this.documents.downloadLogo(this.societe.email).subscribe((v: any)=> {
         console.log(v)
+        this.logo = v.path
       })
     
   }
@@ -228,6 +233,8 @@ updateProfil(societe: any) {
     console.log(v)
   })
 }
+
+
 
 onKbisSelected(event: any) {
 
@@ -249,8 +256,9 @@ onKbisSelected(event: any) {
       formData.append("prenomdirigeant", this.societe.prenom);
       this.postDatas(formData)
       this.documents.updateKbis(this.transData).subscribe((v)=>{
-        console.log(v)
+        this.societe.Kbis = this.logincom.societe.Kbis
       })
+      
       
     
   }
@@ -382,6 +390,7 @@ getDoc(siret: string) {
   finishBill() {
     this.renseignements = true
     this.facturation.getBillToNumber(this.societe.email).subscribe((v: any)=> {
+      
     var facture = document.getElementById('total')
     var prixUnitaireHT
     for (var i = 0; i < this.items.length; i++) {
@@ -409,7 +418,7 @@ getDoc(siret: string) {
     facture.appendChild(row)
     var numFac = row.appendChild(document.createElement('td'))
     this.facturation.checkFacture(this.numerofacture).subscribe((v:any)=> { 
-      if (v === null) {numFac.innerHTML = this.numerofacture.toString() 
+      if (v[0] === undefined) {numFac.innerHTML = this.numerofacture.toString() 
     
     
     this.numeroFinal = parseInt(numFac.innerHTML)
@@ -441,7 +450,10 @@ getDoc(siret: string) {
     this.page !== 1?this.exportHtmlToPDF(true, false): this.exportHtmlToPDF(true, true)
     this.page = 1
       }
-      else {alert("numero de facture invalide")}
+      else {
+        alert("numero de facture invalide")
+        console.log(v)
+      }
     })
   })
   }
@@ -488,18 +500,18 @@ getDoc(siret: string) {
   
   }
 
-  exportTableToXLSX() {
+  /*exportTableToXLSX() {
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('facture'));
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* save to file */
+    
     XLSX.writeFile(wb,'SheetJS.xlsx');
     this.router.navigateByUrl('/espace')
     
     
 
-  }
+  }*/
 
   disconnect() {
     this.logincom.token = ''
@@ -554,5 +566,14 @@ getDoc(siret: string) {
   }
   advancedMenu() {
     document.getElementsByClassName('avancemenutoggle')[0] !== undefined ? document.getElementsByClassName('avancemenutoggle')[0].classList.remove('avancemenutoggle'): document.getElementById('toggle').classList.add('avancemenutoggle')
+  }
+  resolved(captchaResponse: string) {  
+    this.recaptcha = captchaResponse;
+  } 
+  contacter(contact: any, recaptcha: string) {
+    this.contactService.contact(contact,recaptcha).subscribe((v)=>{
+      console.log(v)
+    })
+
   }
 }

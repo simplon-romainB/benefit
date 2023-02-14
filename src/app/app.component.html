@@ -7,7 +7,7 @@
             <p class="orange">Experts certifiés et basés en France</p>
             <img src="/assets/img/france.png" alt="drapeau France" class="flag">
         </div>
-        <img class="logoanimé" src="/assets/img/benefitb.png" alt="logo animé">
+        <a href="#"><img class="logoanimé" src="/assets/img/benefitb.png" alt="logo animé"></a>
         <nav>
             <div class="menucartouche"><a class="navmenu" [routerLink]="['/tarifs']">Tarifs</a></div>
             <div class="menucartouche"><a class="navmenu"  [routerLink]="['/solutions']">Solutions</a></div>
@@ -28,10 +28,10 @@
                 <a [routerLink]="['/tarifs']">Tarifs</a>
             </button>
             <button mat-menu-item>
-                <a href="#">Solutions</a>
+                <a [routerLink]="['/solutions']">Solutions</a>
             </button>
             <button mat-menu-item >
-                <a href="#">Fonctionnalitées</a>
+                <a [routerLink]="['/fonctions']">Fonctionnalitées</a>
             </button>
             <button mat-menu-item>
                 <a [routerLink]="['/rgpd']">A propos</a>

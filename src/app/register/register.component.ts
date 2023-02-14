@@ -68,7 +68,6 @@ export class RegisterComponent implements OnInit {
       )
     } 
     else {
-      console.log("n'imp")
       this.numbersOnly = true
       var z = setTimeout(()=>{this.numbersOnly = false}, 5000)
     }
@@ -161,9 +160,8 @@ register(societe: any) {
       formData.append("prenomdirigeant", this.societe.prenomdirigeant);
       formData.append("recaptcha", this.recaptcha)
       this.postDatas(formData)
-  this.login.register(this.transData).subscribe((v)=> {
-    this.router.navigateByUrl('/')
-    console.log('register')
+      this.login.register(this.transData).subscribe((v)=> {
+        this.router.navigateByUrl('/')
   })
 } 
 resolved(captchaResponse: string) {  

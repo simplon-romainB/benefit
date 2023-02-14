@@ -5,6 +5,7 @@ import { AnalyticsService } from '../analyticsservice.service';
 import { DocumentsService } from '../documents.service';
 import { FacturationService } from '../facturation.service';
 import { LoginService } from '../login.service';
+import { UserprofileService } from '../userprofile.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { LoginService } from '../login.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  constructor(public facturation: FacturationService,public cookieService: CookieService, private logincom: LoginService, private router: Router, public documents: DocumentsService, private analytics: AnalyticsService ) {
+  constructor(private loginService: LoginService,private userProfile: UserprofileService, public facturation: FacturationService,public cookieService: CookieService, private logincom: LoginService, private router: Router, public documents: DocumentsService, private analytics: AnalyticsService ) {
     this.analytics.trackVirtualPageview("login")
    }
 
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.documents.token = v[0]
         this.facturation.token = v[0]
         this.logincom.token = v[0]
+        this.userProfile.token = v[0]
         this.router.navigateByUrl('/')
         this.logincom.societe.siret = v[1][0].SIRET
         this.logincom.societe.siren = v[1][0].SIREN

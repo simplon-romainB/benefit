@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'app-tarifs',
@@ -12,9 +13,11 @@ export class TarifsComponent implements OnInit {
                       ]
   public next = 0
   public previous = 0
+  public recaptcha: string
+  public contact = {email: '', message: ''}
 
 
-  constructor() { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
   }
@@ -60,5 +63,12 @@ export class TarifsComponent implements OnInit {
       this.next --
     }
   }
-
+  resolved(captchaResponse: string) {  
+    this.recaptcha = captchaResponse;
+  } 
+  contacter(contact: any, recaptcha: string) {
+    this.contactService.contact(contact,recaptcha).subscribe((v)=>{
+      console.log(v)
+    })
+  }
 }

@@ -1,5 +1,5 @@
 <main class="container">
-  <form class="registerform"   #registerform = "ngForm" name="form" >
+  <form class="registerform rform"   #registerform = "ngForm" name="form" >
     <mat-form-field appearance="fill" class="formregister" minlength="14" maxlength="14" required>
         <mat-label>Numero de SIRET ou adresse email</mat-label>
         <input matInput [(ngModel)] = "siret" [ngModelOptions]="{standalone: true}">
@@ -47,7 +47,7 @@
         <input type="password" matInput [(ngModel)] = "societe.passwordconfirm" name="confirmpassword" required (keyup) = 'confirmPassword()' (keyup) = passValidation()>
         <small *ngIf="!passConfirmed">vous devez confirmer votre mot de passe</small>
       </mat-form-field>
-      <input type="file" class="file-input" multiple accept="image/pdf, image/png, image/jpeg"
+      <!--<input type="file" class="file-input" multiple accept="image/pdf, image/png, image/jpeg"
        (change)="onFileSelected($event)" #fileUpload >
 
       <div class="file-upload" *ngIf="siretok">{{fileName || "Veuillez ajouter votre Kbis.(facultatif)"}}
@@ -67,7 +67,7 @@
         <mat-icon class="cancel-upload" 
                   *ngIf="uploadProgress">delete_forever</mat-icon>
       
-      </div>
+      </div>-->
       <button [ngStyle]="{'opacity': (!registerReady || registerform.form.invalid || recaptcha === '' )? '0.5' : '1'}" [disabled]="(registerform.form.invalid||!registerReady||recaptcha === '')? true: false" (click)="register(transData)" class="submitsiret" *ngIf="siretok">Inscription</button>
       <div>
         

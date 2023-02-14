@@ -19,5 +19,10 @@ export class UserprofileService {
     var header = new HttpHeaders('Authorization:' + this.token)
     return this.http.get("http://localhost:3000/adminclients", { 'headers': header,  withCredentials: true})
   }
+
+  updateAdmin(admin: any) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.put("http://localhost:3000/admin", admin, { 'headers': header,  withCredentials: true})
+  }
   
 }

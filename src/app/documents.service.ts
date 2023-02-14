@@ -44,4 +44,9 @@ export class DocumentsService {
     return this.http.get("http://localhost:3000/logo?email=" + email, {'headers': header, withCredentials: true})
   }
 
+  downloadfile(path: string) {
+    var header = new HttpHeaders('Authorization:' + this.token)
+    return this.http.get("http://localhost:3000/dlfiles?path=" + path, {'headers': header, withCredentials: true})
+  }
+
 }
