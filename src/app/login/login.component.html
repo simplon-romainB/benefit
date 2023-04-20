@@ -9,8 +9,8 @@
         <mat-form-field appearance="fill" class="formregister" >
           <mat-label >Mot de passe</mat-label >
           <input matInput [(ngModel)] = "societe.password" [ngModelOptions]="{standalone: true}" type ="password">
-          
         </mat-form-field>
+        <small class="forgotpassword">mot de passe oublié ?</small>
         <button (click)="login(societe)" class="submitsiret" >connexion</button>
     </form>
 </main>

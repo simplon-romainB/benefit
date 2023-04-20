@@ -218,7 +218,6 @@ onLogoSelected(event: any) {
         
       })
       this.documents.downloadLogo(this.societe.email).subscribe((v: any)=> {
-        console.log(v)
         this.logo = v.path
       })
     
@@ -478,7 +477,7 @@ getDoc(siret: string) {
             
             this.doc.save('facture.pdf');
             var blob = this.doc.output('blob')
-            var formData = new FormData();
+            var formData = new FormData()
             formData.append('pdf', blob);
             formData.append('siret', this.societe.siret)
             formData.append('email', this.societe.email)
@@ -553,7 +552,14 @@ getDoc(siret: string) {
   saveProfile() {
     this.profile.nom = prompt('enter your profile name')
     this.facturation.saveProfil(this.profile, this.societe.email).subscribe((v:any)=>{
-      
+      console.log(v)
+      this.facturation.getProfile(this.societe.email).subscribe((v: any)=>{
+        for (var i = 0; i< v.length; i ++) {
+          this.profiles.push(v[i])
+          
+        }
+        
+      })
     })
 
   }

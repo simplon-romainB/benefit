@@ -40,6 +40,7 @@ import { FonctionsComponent } from './fonctions/fonctions.component';
 import { ContactComponent } from './contact/contact.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SolutionsComponent } from './solutions/solutions.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
@@ -60,7 +61,8 @@ import { SolutionsComponent } from './solutions/solutions.component';
     TarifsComponent,
     FonctionsComponent,
     ContactComponent,
-    SolutionsComponent
+    SolutionsComponent,
+    CalendarComponent
     
   ],
   imports: [

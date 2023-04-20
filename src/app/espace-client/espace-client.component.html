@@ -5,11 +5,11 @@
         <form class="registerform profilform"  #registerform2 = "ngForm" name="form2">
             <mat-form-field appearance="fill" class="formprofil" minlength="14" maxlength="14" required>
                 <mat-label>Numero de SIRET</mat-label>
-                <input matInput [(ngModel)] = "societe.siret"  readonly ="true" name="siret">
+                <input matInput [(ngModel)] = "societe.siret"  name="siret">
               </mat-form-field>
-              <mat-form-field appearance="fill" class="formprofil" >
+              <mat-form-field appearance="fill" class="formprofil" minlength="9" maxlength="9"> 
                 <mat-label >Numero de SIREN</mat-label >
-                <input matInput [(ngModel)] = "societe.siren"  readonly="true" name="siren">
+                <input matInput [(ngModel)] = "societe.siren"  name="siren">
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label>Dénomination</mat-label>
@@ -67,7 +67,7 @@
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label>prix unitaire HT</mat-label>
-                <input matInput [(ngModel)] = "item.prix"   type="number"   required name="prixHT">
+                <input matInput [(ngModel)] = "item.prix"   type="number"   min="1" required name="prixHT">
               </mat-form-field>
               <mat-form-field appearance="fill" class="formprofil" >
                 <mat-label >TVA</mat-label >
@@ -129,7 +129,7 @@
             <mat-checkbox class="checkboxes" name="checked5"[(ngModel)]="profile.assurance">Assurance souscrite au titre de l'activité.</mat-checkbox>
             <input type="file" class="file-input" multiple 
             (change)="onLogoSelected($event)" #fileUpload3 >
-            <div *ngIf="fileName3 === undefined" class="file-upload" >{{fileName3 || "Vous pouvez mettre votre logo."}}
+            <div  class="file-upload" accept=".png, .jpg" >{{fileName3 || "Vous pouvez mettre votre logo."}} 
               <button mat-mini-fab color="primary" class="upload-btn"
               (click)="fileUpload3.click()">
               <mat-icon>attach_file</mat-icon>
@@ -223,17 +223,16 @@
         <button class="submitsiret creerfacture" [ngStyle]="{'opacity':  registerform3.form.invalid ? '0.5' : '1'}" [disabled]="registerform3.form.invalid? true: false"(click)="creerClient(client, societe.email)">enregistrer</button>
       </form>
       <div class="facturecontainer" id="facturecontainer" *ngIf="facture">
-        <img src="{{'http://localhost:3000/' + logo}}" alt="logo entreprise facture" class = "logo">
+        <img *ngIf ="logo != undefined" src="{{'http://localhost:3000/' + logo}}"  alt=" " class = "logo">
         
        <div class="facturant">
-        <div>SIRET: {{societe.siret}}</div>
         <div>{{societe.adresse}}</div>
         <div *ngIf="societe.denomination !== undefined">{{profile.formeJuridique + ' ' + societe.denomination}}</div>
         <div *ngIf="societe.denomination === undefined">{{societe.nom + ' ' + societe.prenom}}</div>
         <div *ngIf="profile.ville !== undefined">{{societe.rcs}}</div>
         <div *ngIf="((profile.capital !== undefined)&&(profile.capital !==0))">Capital: {{profile.capital| currency:'EUR'}} </div>
         <div *ngIf="profile.numeroTva !== undefined">{{profile.numeroTva}}</div>
-        
+        <div>SIRET: {{societe.siret}}</div>
       </div>
       <div class="facturated">
         <div>{{client.email}}</div>
@@ -315,8 +314,8 @@
         <p>Benefit</p>
         <p>1, rue Jules Serval</p>
         <p>69280 Venissieux</p>
-        <a class="footerlink" href="tel:+0425252525">04 25 25 25 25</a>
-        <p>benefit@benefit.com</p>
+        <a class="footerlink" href="tel:+0478679725">04 78 67 97 25</a>
+        <p>comptables@benefit-expert.fr</p>
     </section>
   </footer>
 

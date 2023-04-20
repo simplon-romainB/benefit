@@ -12,7 +12,6 @@ export class FacturationService {
 
   creerClient(client: any, email: any) {
     var header = new HttpHeaders('Authorization:' + this.token)
-    console.log(this.token)
     header.set('Content-Type', 'application/json; charset=utf-8')
     return this.http.post("http://localhost:3000/client?email=" + email, client ,{ 'headers': header,  withCredentials: true})
   }

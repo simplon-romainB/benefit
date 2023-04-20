@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AdmindetailsComponent } from './admindetails/admindetails.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { ContactComponent } from './contact/contact.component';
 import { EspaceClientComponent } from './espace-client/espace-client.component';
 import { FonctionsComponent } from './fonctions/fonctions.component';
@@ -23,7 +24,8 @@ const routes: Routes = [{ path: 'register', component: RegisterComponent },
                         { path: '', redirectTo: 'home', pathMatch: 'full'},
                         { path: 'fonctions', component: FonctionsComponent},
                         { path: 'contact', component: ContactComponent},
-                        { path: "solutions", component: SolutionsComponent}
+                        { path: "solutions", component: SolutionsComponent},
+                        { path: "rdv", component: CalendarComponent}
 
                         
 

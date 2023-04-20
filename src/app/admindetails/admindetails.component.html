@@ -29,7 +29,7 @@
                     <mat-label>confirmation du mot de passe</mat-label>
                     <input matInput [(ngModel)] = "admin.confirmpassword"   name="confirmpassword">
                   </mat-form-field>
-                  <button class="submitsiret" (click)="updateProfil(admin)">mettre à jour le profil</button>
+                  <button class="submitsiret" (click)="updateProfil(admin)">mettre à jour</button>
             </form>
         </section>
         <section class="client">
@@ -48,7 +48,7 @@
               <p *ngIf="client.SIREN !== ''">{{client.SIREN}}</p>
               <p>{{client.adresse}}</p>
               <div class="adminbuttoncontainer">
-                <button class="submitsiret" (click)="addSiret(this.siret)">Ajouter Siret</button>
+                <button class="submitsiret" (click)="addSiret(siret)">Ajouter Siret</button>
                 <button class="submitsiret" (click)="deleteClient()">supprimer client</button>
                 <button class="submitsiret" (click)="sendMail(body)" (click)="sendNotif(client.email)">Notifier client</button>
               </div>
@@ -63,4 +63,23 @@
             </div>
           </div>
         </section>
+        
  </main>
+ <section class="adminfacdoc">
+  <div class="adminfacture">
+    <h1>
+      factures
+    </h1>
+    <div class="docname" *ngFor="let doc of factures" ><a href="{{'http://localhost:3000/' + doc.path}}">
+      facture No {{doc.numero}}
+    </a>
+  </div>
+  </div>
+  <div class="admindoc">
+    <h1>Documents</h1>
+    <div class="docname" *ngFor="let doc of document" ><a href="{{'http://localhost:3000/' + doc.path}}">
+      {{doc.nom}}
+    </a>
+  </div>
+  </div>
+</section>

@@ -40,9 +40,9 @@
           
         <div class ="rdv">
             <mat-icon>calendar_today</mat-icon>
-            <a href="#">Prenez RDV</a>
+            <a [routerLink]="['/rdv']">Prenez RDV</a>
         </div>
-       <a href="tel:+04525252" class="linkphone"><button class="telbutton"><img src="/assets/img/phone-call.png" alt="appel telephonique"><span class="numtelephone">04 52 52 52 52</span></button></a>
+       <a href="tel:+0478679725" class="linkphone"><button class="telbutton"><img src="/assets/img/phone-call.png" alt="appel telephonique"><span class="numtelephone">04 78 67 97 25</span></button></a>
        <div class="login">
         <a [routerLink]="['/login']" *ngIf="((logincom.token === undefined)||(logincom.token === ''))">Connexion</a>
         <a [routerLink]="['/espace']" *ngIf="((logincom.token !== undefined)&&(logincom.token !== ''))">Espace client</a>

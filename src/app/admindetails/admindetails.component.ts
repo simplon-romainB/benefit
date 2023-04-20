@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactService } from '../contact.service';
+import { DocumentsService } from '../documents.service';
 import { LoginService } from '../login.service';
 import { UserprofileService } from '../userprofile.service';
 
@@ -16,10 +17,11 @@ export class AdmindetailsComponent implements OnInit {
   public siret: string 
   private clientSiret = { siret:'', email: ''}
   public body = {email: '', message: ''}
-
+  public document = []
+  public factures = []
   
 
-  constructor(private contact: ContactService, private loginService: LoginService, public login: LoginService, public route: Router, public userProfile: UserprofileService) { 
+  constructor(public documents: DocumentsService,private contact: ContactService, private loginService: LoginService, public login: LoginService, public route: Router, public userProfile: UserprofileService) { 
     this.admin.nom = this.login.admin.nom
     this.admin.prenom = this.login.admin.prenom
     this.admin.email = this.login.admin.email
@@ -28,6 +30,22 @@ export class AdmindetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getDoc() {
+    this.documents.getDoc(this.client.email).subscribe((v: any) => {
+      for (var i = 0; i< v.length; i++) {
+        this.document.push(v[i])
+      }
+    })
+  }
+
+  getBill() {
+    this.documents.getBill(this.client.email).subscribe((v: any) => {
+      for (var i = 0; i< v.length; i++) {
+        this.factures.push(v[i])
+      }
+    })
   }
 
   deconnexion() {
@@ -42,6 +60,11 @@ export class AdmindetailsComponent implements OnInit {
   }
   chooseClient(client: any) {
     this.client = client
+    this.document = []
+    this.getDoc()
+    this.getBill()
+
+
   }
   initClients() {
     this.userProfile.getClients().subscribe((v: any) =>{
